@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Xaval</title>
+</head>
+<body>
+<h2>Xaval</h2>
+<p id="status">OpenCV.js is loading...</p>
+<div class="io">
+    <img id="image" alt="No Image" />
+    <div class="caption">Image <input type="file" id="fileInput" name="file" /></div>
+</div>
+<div class="io">
+    <canvas id="canvas"></canvas>
+    <div class="caption">canvas</div>
+</div>
+
+<script type="text/javascript">
+const imgEl = document.getElementById('image');
+const inputEl = document.getElementById('fileInput');
+inputEl.addEventListener('change', e => {
+    imgEl.src = URL.createObjectURL(e.target.files[0]);
+}, false);
+
+imgEl.addEventListener('load', () => {
+    const mat = cv.imread(imgEl);
+    cv.imshow('canvas', mat);
+    mat.delete();
+});
+
+function onOpenCvReady () {
+    document.getElementById('status').innerHTML = 'OpenCv.js is ready.';
+}
+</script>
+<script async src="opencv/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+</body>
+</html>

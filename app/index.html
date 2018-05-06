@@ -15,28 +15,16 @@
         <button id="runButton">Run</button>
     </div>
 </div>
-<div class="io">
-    <img id="image" alt="No Image" />
-    <div class="caption">Image <input type="file" id="fileInput" name="file" /></div>
+<div id="imageSource" class="io">
+    <img alt="No Image" />
+    <div class="caption">Image <input type="file" class="fileInput" name="file" /></div>
 </div>
-<div class="io">
-    <canvas id="canvas"></canvas>
+<div id="imageViewer" class="io">
+    <canvas></canvas>
     <div class="caption">canvas</div>
 </div>
 
 <script type="text/javascript">
-const imgEl = document.getElementById('image');
-const inputEl = document.getElementById('fileInput');
-inputEl.addEventListener('change', e => {
-    imgEl.src = URL.createObjectURL(e.target.files[0]);
-}, false);
-
-imgEl.addEventListener('load', () => {
-    const mat = cv.imread(imgEl);
-    cv.imshow('canvas', mat);
-    mat.delete();
-});
-
 function onOpenCvReady () {
     document.getElementById('status').innerHTML = 'OpenCv.js is ready.';
 }

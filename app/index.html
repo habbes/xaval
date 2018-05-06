@@ -6,6 +6,15 @@
 <body>
 <h2>Xaval</h2>
 <p id="status">OpenCV.js is loading...</p>
+
+<div id="editorContainer">
+    <textarea id="editor" rows="15">
+
+    </textarea>
+    <div>
+        <button id="runButton">Run</button>
+    </div>
+</div>
 <div class="io">
     <img id="image" alt="No Image" />
     <div class="caption">Image <input type="file" id="fileInput" name="file" /></div>
@@ -33,5 +42,10 @@ function onOpenCvReady () {
 }
 </script>
 <script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+<script src="app.js"></script>
+<script>
+const app = init();
+app.start();
+</script>
 </body>
 </html>

@@ -7,11 +7,9 @@ function init () {
     const editor = new Editor(document.querySelector('#editorContainer'));
     const imageViewer = new ImageViewer(document.querySelector('#imageViewer'));
     const imageSource = new ImageSource(document.querySelector('#imageSource'))
-    const runner = new CodeRunner();
 
     const app = new App({
         editor,
-        runner,
         imageSource,
         imageViewer
     });
@@ -23,25 +21,37 @@ class App {
     /**
      * @param {object} args
      * @param {Editor} args.editor
-     * @param {CodeRunner} args.runner
      * @param {ImageSource} args.imageSource
      * @param {ImageViewer} args.imageViewer
      */ 
     constructor (args) {
         this.editor = args.editor;
-        this.runner = args.runner;
-        this.imageViewer = args.imageViewer;
         this.imageSource = args.imageSource;
+        this.imageViewer = args.imageViewer;
     }
 
     start () {
         this.editor.setRunHandler(source => {
-            const res = this.runner.run(source);
+            const res = this.runCode(source);
             console.log('Code result', res);
         });
+    }
 
-        window.imsource = this.imageSource;
-        window.imviewer = this.imageViewer;
+    /**
+     * 
+     * @param {string} source 
+     */
+    runCode (source) {
+        const execute = Function(
+            'imsource',
+            'imviewer',
+            `"use strict";${source}`
+        );
+
+        return execute(
+            this.imageSource,
+            this.imageViewer
+        );
     }
 }
  
@@ -75,16 +85,6 @@ class Editor {
 
     run () {
         this.runHandler && this.runHandler(this.source);
-    }
-}
-
-class CodeRunner {
-    /**
-     * 
-     * @param {string} source 
-     */
-    run (source) {
-        return eval(source);
     }
 }
 

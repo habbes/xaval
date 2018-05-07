@@ -62,7 +62,10 @@ class Editor {
      */
     constructor (el) {
         this.container = el;
-        this.editor = el.querySelector('#editor');
+        // this.editor = el.querySelector('#editor');
+        this.editor = ace.edit("editor");
+        this.editor.setTheme("ace/theme/monokai");
+        this.editor.session.setMode("ace/mode/javascript");
         this.runBtn = el.querySelector('button');
         this.run = this.run.bind(this);
         this.runBtn.addEventListener('click', this.run);
@@ -80,7 +83,8 @@ class Editor {
      * @return {string}
      */
     get source () {
-        return this.editor.value;
+        // return this.editor.value;
+        return this.editor.getValue();
     }
 
     run () {

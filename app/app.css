@@ -17,7 +17,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 50px;
-    background-color: #38023B;
+    background-color: #201F88;
     padding-right: 20px;
     padding-left: 20px;
     color: #BBD5ED;
@@ -29,7 +29,7 @@ body {
 
 #main {
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 1fr 1fr;
 }
 
 #editorContainer {
@@ -39,7 +39,7 @@ body {
 
 #editorHeader {
     height: 50px;
-    background-color: #CEFDFF;
+    background-color: #0077CC;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,6 +47,7 @@ body {
 
 #runButton {
     padding: 10px 15px;
+    background-color: #00DFBC;
 }
 
 #ioContainer {

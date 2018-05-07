@@ -1,0 +1,77 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Roboto, sans-serif;
+}
+
+#appContainer {
+    height: 100vh;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    background-color: #38023B;
+    padding-right: 20px;
+    padding-left: 20px;
+    color: #BBD5ED;
+}
+
+#status {
+    font-size: 0.8em;
+}
+
+#main {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
+#editorContainer {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+#editorHeader {
+    height: 50px;
+    background-color: #CEFDFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#runButton {
+    padding: 10px 15px;
+}
+
+#ioContainer {
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
+#imageViewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#imageViewer canvas {
+    max-width: 100%;
+    max-height: 100%;
+    box-sizing: border-box;
+    background-color: #CCFFCB;
+}
+
+#imageSource {
+    padding: 20px;
+    height: 120px;
+}
+
+#imageSource img {
+    height: 100px;
+}

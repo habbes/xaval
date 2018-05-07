@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xaval</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
 </head>
 <body>
-<h2>Xaval</h2>
-<p id="status">OpenCV.js is loading...</p>
+<div id="appContainer">
+    <header id="header">
+        <div id="logo">Xaval</div>
+        <div id="status">OpenCV.js is loading...</div>
+    </header>
+    <div id="main">
+        <div id="editorContainer">
+            <div id="editorHeader">
+                <button id="runButton"><i class="fas fa-play"></i> Run</button>
+            </div>
+            <textarea id="editor" rows="15">
 
-<div id="editorContainer">
-    <textarea id="editor" rows="15">
-
-    </textarea>
-    <div>
-        <button id="runButton">Run</button>
+            </textarea>
+        </div>
+        <div id="ioContainer">
+            <div id="imageViewer" class="io">
+                <canvas></canvas>
+            </div>
+            <div id="imageSource" class="io">
+                <img alt="No Image" />
+                <div class="caption">Image <input type="file" class="fileInput" name="file" /></div>
+            </div>
+        </div>
     </div>
 </div>
-<div id="imageSource" class="io">
-    <img alt="No Image" />
-    <div class="caption">Image <input type="file" class="fileInput" name="file" /></div>
-</div>
-<div id="imageViewer" class="io">
-    <canvas></canvas>
-    <div class="caption">canvas</div>
-</div>
-
 <script type="text/javascript">
 function onOpenCvReady () {
     document.getElementById('status').innerHTML = 'OpenCv.js is ready.';

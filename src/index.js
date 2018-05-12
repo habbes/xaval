@@ -2,6 +2,7 @@
  * @author Habbes <hello@habbes.xyz>
  */
 
+import './app.css';
 
 const INITIAL_CODE = `
 // Xaval is a playground for experimenting with computer vision using OpenCV
@@ -39,7 +40,9 @@ function init () {
     return app;
 }
 
-window.init = init;
+if (window) {
+    window.init = init;
+}
 
 class App {
     /**

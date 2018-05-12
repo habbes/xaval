@@ -4,14 +4,14 @@
 
 
 const INITIAL_CODE = `
-// Xaval is a playground for experimenting with computer vision using OpenCv
+// Xaval is a playground for experimenting with computer vision using OpenCV
 
 // To get started, import an image from the bottom-left
 // Use \`imsource.read()\` to load the imported image into an OpenCV array
 const img = imsource.read();
 // Do some image processing and manipulation using OpenCV
 cv.cvtColor(img, img, cv.COLOR_RGBA2GRAY, 0);
-// to display an image, use \`imviewer.show()\`
+// Then, to display an image, use \`imviewer.show()\`
 imviewer.show(img);
 
 // don't forget to clean up the memory

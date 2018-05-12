@@ -25,7 +25,6 @@ img.delete();
 // https://docs.opencv.org/3.4.1/d5/d10/tutorial_js_root.html
 `;
 
-
 function init () {
     const editor = new Editor(document.querySelector('#editorContainer'));
     const imageViewer = new ImageViewer(document.querySelector('#imageViewer'));
@@ -40,7 +39,12 @@ function init () {
     return app;
 }
 
+// start app
+// const app = init();
+// app.start();
+
 if (window) {
+    console.log('HERE');
     window.init = init;
 }
 

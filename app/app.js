@@ -152,11 +152,13 @@ class ImageSource {
      */
     constructor (el) {
         this.el = el;
-        this.imgEl = el.querySelector('img');
+        this.thumbnail = el.querySelector('img');
+        this.image = new Image();
         this.inputEl = el.querySelector('input');
 
         this.inputEl.addEventListener('change', e => {
-            this.imgEl.src = URL.createObjectURL(e.target.files[0]);
+            this.thumbnail.src = URL.createObjectURL(e.target.files[0]);
+            this.image.src = this.thumbnail.src;
         }, false);
     }
 
@@ -166,6 +168,6 @@ class ImageSource {
      * @return {cv.Mat}
      */
     read () {
-        return cv.imread(this.imgEl);
+        return cv.imread(this.image);
     }
 }

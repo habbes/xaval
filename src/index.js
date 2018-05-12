@@ -39,6 +39,8 @@ function init () {
     return app;
 }
 
+window.init = init;
+
 class App {
     /**
      * @param {object} args

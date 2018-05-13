@@ -2,7 +2,7 @@
  * @author Habbes <hello@habbes.xyz>
  */
 
-import './app.css';
+import './ui/app.css';
 
 const INITIAL_CODE = `
 // Xaval is a playground for experimenting with computer vision using OpenCV
@@ -47,46 +47,6 @@ if (window) {
     console.log('HERE');
     window.init = init;
 }
-
-class App {
-    /**
-     * @param {object} args
-     * @param {Editor} args.editor
-     * @param {ImageSource} args.imageSource
-     * @param {ImageViewer} args.imageViewer
-     */ 
-    constructor (args) {
-        this.editor = args.editor;
-        this.imageSource = args.imageSource;
-        this.imageViewer = args.imageViewer;
-    }
-
-    start () {
-        this.editor.setRunHandler(source => {
-            const res = this.runCode(source);
-            console.log('Code result', res);
-        });
-
-        this.editor.editor.focus();
-    }
-
-    /**
-     * 
-     * @param {string} source 
-     */
-    runCode (source) {
-        const execute = Function(
-            'imsource',
-            'imviewer',
-            `"use strict";${source}`
-        );
-
-        return execute(
-            this.imageSource,
-            this.imageViewer
-        );
-    }
-}
  
 class Editor {
     /**
@@ -129,54 +89,4 @@ class Editor {
     }
 }
 
-class ImageViewer {
-    /**
-     * 
-     * @param {HTMLElement} el 
-     */
-    constructor (el) {
-        this.el = el;
-        this.canvas = el.querySelector('.canvas');
-        this.canvas.id = `canvas${ImageViewer.nextId()}`;
-    }
 
-    static nextId () {
-        ImageViewer._nextId = (ImageViewer._nextId || 0) + 1;
-        return ImageViewer._nextId;
-    }
-
-    /**
-     * 
-     * @param {cv.Mat} mat 
-     */
-    show (mat) {
-        cv.imshow(this.canvas.id, mat);
-    }
-}
-
-class ImageSource {
-    /**
-     * 
-     * @param {HTMLElement} el 
-     */
-    constructor (el) {
-        this.el = el;
-        this.thumbnail = el.querySelector('img');
-        this.image = new Image();
-        this.inputEl = el.querySelector('input');
-
-        this.inputEl.addEventListener('change', e => {
-            this.thumbnail.src = URL.createObjectURL(e.target.files[0]);
-            this.image.src = this.thumbnail.src;
-        }, false);
-    }
-
-    
-
-    /**
-     * @return {cv.Mat}
-     */
-    read () {
-        return cv.imread(this.image);
-    }
-}

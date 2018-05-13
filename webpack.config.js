@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.ts',
     mode: "production",
     devtool: 'inline-source-map',
     devServer: {
@@ -24,10 +24,17 @@ module.exports = {
                     'style-loader',
                     'css-loader'
                 ]
+            },
+            {
+                test: /.txt$/,
+                use: 'raw-loader'
             }
         ]
     },
     resolve: {
+        alias: {
+            '@': './src'
+        },
         extensions: [ '.tsx', '.ts', '.js' ]
     },
     output: {
@@ -36,7 +43,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './src/ui/index.html'
         }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()

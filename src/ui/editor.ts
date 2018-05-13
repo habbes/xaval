@@ -1,5 +1,5 @@
-import { Editor } from '../types';
-import INITIAL_CODE from '../samples/quick-intro';
+import { Editor } from '@/types';
+import INITIAL_CODE from '@/samples/quick-intro';
 
 export default class implements Editor {
     readonly container: HTMLElement;

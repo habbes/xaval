@@ -3,7 +3,7 @@ import {
     Editor,
     ImageSource,
     ImageViewer
-} from './ui';
+} from './ui/index';
 import './ui/app.css';
 
 

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "baseUrl": "./src",
+        "baseUrl": "src",
         "outDir": "./public",
         "sourceMap": true,
         "noImplicitAny": true,
@@ -8,7 +8,7 @@
         "target": "es5",
         "allowJs": true,
         "paths": {
-            "@": ["./src"]
+            "@/*": ["./*"]
         }
     }
 }

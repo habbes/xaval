@@ -14,7 +14,7 @@ export default class implements Editor {
         this.editorEl = el.querySelector('#editor');
         this.editor = ace.edit(this.editorEl);
         this.editor.setValue(INITIAL_CODE);
-        this.editor.setTheme("ace/theme/tomorrow");
+        this.editor.setTheme("ace/theme/xcode");
         this.editor.session.setMode("ace/mode/javascript");
         this.editor.setShowPrintMargin(false);
         this.editor.clearSelection();

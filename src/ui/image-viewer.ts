@@ -1,4 +1,4 @@
-import { ImageViewer } from '../types';
+import { ImageViewer } from '@/types';
 
 let _nextId = 0;
 

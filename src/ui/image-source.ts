@@ -1,4 +1,4 @@
-import { ImageSource, HtmlInputEvent } from '../types';
+import { ImageSource, HtmlInputEvent } from '@/types';
 
 export default class implements ImageSource {
     readonly el: HTMLElement;

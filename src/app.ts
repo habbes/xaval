@@ -1,4 +1,4 @@
-import { AppNewArgs } from './types';
+import { AppNewArgs } from '@/types';
 
 export default class App {
     args: AppNewArgs;

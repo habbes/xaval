@@ -4,13 +4,13 @@
   "description": "Interactive web-based playground for computer vision and image processing",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf public",
+    "opencv": "copyfiles -u 2 src/opencv/* public",
     "prep": "npm run clean && npm run opencv",
     "build": "npm run prep && webpack --config webpack.prod.js",
     "watch": "npm run prep && webpack --config webpack.dev.js --watch",
     "start": "npm run prep && webpack-dev-server --open --config webpack.dev.js",
-    "opencv": "copyfiles -u 2 src/opencv/* public"
+    "deploy": "npm run build && firebase deploy"
   },
   "repository": {
     "type": "git",

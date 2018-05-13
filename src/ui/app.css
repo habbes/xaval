@@ -39,7 +39,7 @@ body {
 
 #editorHeader {
     height: 50px;
-    background-color: #116174;
+    background-color: #ececec;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,6 +69,9 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #131313;
+    background-color: #fff;
+    border-left: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
 }
 
 #imageViewer .canvas {
@@ -76,12 +79,14 @@ body {
     max-height: 100%;
     box-sizing: border-box;
     background-color: #131313;
+    background-color: #fff;
 }
 
 #imageSource {
     padding: 20px;
     height: 120px;
-    background-color: #f7f7f7;
+    background-color: #fdfdfd;
+    border-left: 1px solid #efefef;
 }
 
 #imageSource img {

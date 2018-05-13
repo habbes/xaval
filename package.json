@@ -6,10 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf public",
-    "build": "npm run copy-opencv && webpack",
-    "watch": "npm run copy-opencv && webpack --watch",
-    "start": "webpack-dev-server --open",
-    "copy-opencv": "copyfiles -u 2 src/opencv/* public"
+    "prep": "npm run clean && npm run opencv",
+    "build": "npm run prep && webpack --config webpack.prod.js",
+    "watch": "npm run prep && webpack --config webpack.dev.js --watch",
+    "start": "npm run prep && webpack-dev-server --open --config webpack.dev.js",
+    "opencv": "copyfiles -u 2 src/opencv/* public"
   },
   "repository": {
     "type": "git",
@@ -32,8 +33,10 @@
     "style-loader": "^0.21.0",
     "ts-loader": "^4.3.0",
     "typescript": "^2.8.3",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.8.2",
     "webpack-cli": "^2.1.3",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "webpack-merge": "^4.1.2"
   }
 }

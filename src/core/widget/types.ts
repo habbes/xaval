@@ -11,6 +11,7 @@ export enum WidgetArgControlType {
 }
 
 export interface WidgetOpts {
+    name: string;
     params: WidgetParams;
     inputs: WidgetInputs;
     onUpdate(ctx: WidgetModelContext): any;

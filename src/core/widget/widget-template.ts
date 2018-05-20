@@ -8,8 +8,9 @@ import {
 } from './types';
 import { createWidgetCreateFunction } from './widget-model';
 
-export function createWidgetTemplate (args: WidgetTemplateCreateArgs): WidgetTemplate {
+export function createWidgetTemplate (name: string, args: WidgetTemplateCreateArgs): WidgetTemplate {
     const opts = {
+        name,
         params: {},
         inputs: {},
         onUpdate: args.onUpdate

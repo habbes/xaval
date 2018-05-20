@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/habbes/xaval#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.109",
     "copyfiles": "^2.0.0",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
@@ -40,6 +41,7 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "lodash": "^4.17.10",
     "rxjs": "^6.1.0"
   }
 }

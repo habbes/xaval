@@ -1,3 +1,5 @@
+import { Observable, Observer } from 'rxjs';
+
 export interface Editor {
     source: string;
     run(): void;
@@ -21,4 +23,12 @@ export interface AppNewArgs {
 
 export interface HtmlInputEvent extends Event {
     target: HTMLInputElement & EventTarget
+}
+
+export interface DataSource<T> {
+    readonly observable: Observable<T>;
+}
+
+export interface DataSink<T> {
+    readonly observer: Observer<T>
 }

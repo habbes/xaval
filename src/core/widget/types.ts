@@ -1,3 +1,5 @@
+import { DataSink, DataSource } from '@/types';
+
 export enum WidgetArgDataType {
     Any = 'any',
     Number = 'number',
@@ -40,7 +42,7 @@ export interface WidgetModelContext {
     }
 }
 
-export interface WidgetModel {
+export interface WidgetModel extends DataSource<any> {
     opts: WidgetOpts;
     state: WidgetModelContext;
     setInput(inputName: string, value: any): void;

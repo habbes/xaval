@@ -1,7 +1,9 @@
+import {Subject} from 'rxjs';
 import { WidgetModel, WidgetOpts, WidgetModelContext, WidgetArgDataType } from "./types";
 
 export function createWidgetCreateFunction (opts: WidgetOpts)  {
-    function create (): WidgetModel {
+    function create () {
+        const source = new Subject();
         const widget: WidgetModel =  {
             opts,
             state: initWidgetModelState(opts),
@@ -19,9 +21,12 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
                 this.state.params[name] = value;
                 this.update();
             },
+            get observable () {
+                return source;
+            },
             update () {
-                // TODO trigger output
                 const output = this.opts.onUpdate(this.state);
+                source.next(output);
             }
         }
 

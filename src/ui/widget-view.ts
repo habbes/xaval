@@ -3,7 +3,7 @@ import { template } from 'lodash';
 import { WidgetModel } from 'core/widget';
 
 
-export default class WidgetView {
+export class WidgetView {
     readonly el: HTMLElement;
     readonly model: WidgetModel;
     constructor (model: WidgetModel) {

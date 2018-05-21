@@ -92,3 +92,11 @@ body {
 #imageSource img {
     height: 100px;
 }
+
+#widgetManager {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}

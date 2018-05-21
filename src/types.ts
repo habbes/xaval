@@ -1,4 +1,5 @@
 import { Observable, Observer } from 'rxjs';
+import { WidgetManager } from '@/ui/widget-manager';
 
 export interface Editor {
     source: string;
@@ -19,6 +20,7 @@ export interface AppNewArgs {
     editor: Editor;
     imageViewer: ImageViewer;
     imageSource: ImageSource;
+    widgetManager: WidgetManager;
 }
 
 export interface HtmlInputEvent extends Event {

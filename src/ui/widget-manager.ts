@@ -4,7 +4,7 @@ import {
     WidgetTemplate, 
     WidgetModel
 } from '@/core/widget';
-import WidgetView from './widget-view';
+import { WidgetView } from './widget-view';
 
 export class WidgetManager {
     readonly el: HTMLElement;

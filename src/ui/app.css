@@ -102,6 +102,20 @@ body {
     height: 100px;
 }
 
+#imageSource img.empty {
+    display: none;
+}
+
+#imageSource .image-input {
+    cursor: pointer;
+    color: #9a9ba2;
+    font-size: 0.8em;
+}
+
+#imageSource input {
+    display: none;
+}
+
 #widgetManager {
     position: absolute;
     top: 0px;

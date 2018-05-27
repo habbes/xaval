@@ -101,3 +101,7 @@ body {
     right: 0px;
     z-index: -1;
 }
+
+.widget {
+    z-index: 10;
+}

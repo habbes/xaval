@@ -17,19 +17,17 @@ interface WidgetHtmlElement extends HTMLDivElement {
 }
 
 function createHtml (model: WidgetModel) {
-    const tpl =  `
-    <div class="widget">
-        <b>${model.opts.name}</b>
-        <div class="params-container">
-        </div>
-    </div>
-    `;
-    let node: WidgetHtmlElement = <WidgetHtmlElement>document.createElement('div')
+    const tpl = 
+    `<b>${model.opts.name}</b>
+    <div class="params-container">
+    </div>`;
+    let node: WidgetHtmlElement = <WidgetHtmlElement>document.createElement('div');
+    node.className = 'widget';
     node.innerHTML = tpl;
-    node = <WidgetHtmlElement>node.firstChild;
     // TODO: is it necessary to create a node.widget reference?
     node.widget = model;
     const params = model.opts.params;
+    console.log('params', params, model);
     const paramContainer = node.querySelector('.params-container');
     for (let paramName in params) {
         const control = createParamControl(paramName, model);
@@ -45,14 +43,12 @@ function createParamControl (name: string, model: WidgetModel): HTMLElement {
         const value = Number(input.value);
         model.setParam(name, value);
     });
-    const tpl =  `
-    <div class="param-control">
-        <div class="param-label">${name}</div>
-        <div class="param-input-container">
-        </div>
-    </div>
-    `
-    const node = document.createElement('template');
+    const tpl = 
+    `<div class="param-label">${name}</div>
+    <div class="param-input-container">
+    </div>`;
+    const node = document.createElement('div');
+    node.className = 'param-control';
     node.innerHTML = tpl;
     node.querySelector('.param-input-container').appendChild(input);
     return node;

@@ -18,8 +18,10 @@ interface WidgetHtmlElement extends HTMLDivElement {
 
 function createHtml (model: WidgetModel) {
     const tpl = 
-    `<b>${model.opts.name}</b>
-    <div class="params-container">
+    `<div class="widget-title">${model.opts.name}</div>
+    <div class="widget-content">
+        <div class="params-container">
+        </div>
     </div>`;
     let node: WidgetHtmlElement = <WidgetHtmlElement>document.createElement('div');
     node.className = 'widget';

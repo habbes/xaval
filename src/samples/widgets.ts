@@ -3,15 +3,18 @@ const Widget = widgets.define('Widget', {
     params: {
         angle: {
             type: 'number'
+        },
+        scale: {
+            type: 'number'
         }
     },
     inputs: ['image'],
     onUpdate (ctx) {
-        const { inputs: { image }, params: { angle } } = ctx;
+        const { inputs: { image }, params: { angle, scale } } = ctx;
         const dst = new cv.Mat();
         const dsize = new cv.Size(image.rows, image.cols);
         const center = new cv.Point(image.cols / 2, image.rows / 2);
-        const M = cv.getRotationMatrix2D(center, angle, 1);
+        const M = cv.getRotationMatrix2D(center, angle, scale);
         cv.warpAffine(image, dst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
         M.delete();
         return dst;

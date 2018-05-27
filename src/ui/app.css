@@ -105,4 +105,27 @@ body {
 .widget {
     z-index: 10;
     position: absolute;
+    border: 1px solid #9e9d9d;
+    border-radius: 3px;
+}
+
+.widget-title {
+    padding: 3px 10px;
+    background-color: #bbbbbd;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #464444;
+}
+
+.widget-content {
+    padding: 10px;
+    background-color: #f1f0f0;
+}
+
+.widget .param-label {
+    font-size: 0.6em;
+}
+
+.widget .param-input-container input[type='range'] {
+    width: 100%;
 }

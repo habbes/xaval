@@ -1,14 +1,29 @@
-const WIDGETS = `
-const Widget = widgets.define('Widget', {
+const WIDGETS =
+`// This example demonstrates how to create custom widgets in Xaval
+
+// import an image from the import panel at the bottom right, then load it here
+const img = imsource.read();
+
+// define a custom widget template
+const Rotation = widgets.define('Rotation', {
+    // define parameters for this widget
     params: {
         angle: {
-            type: 'number'
+            type: 'number',
+            min: -180,
+            max: 180,
+            initial: 0
         },
         scale: {
-            type: 'number'
+            type: 'number',
+            initial: 1,
+            min: 0,
+            max: 5
         }
     },
+    // define inputs
     inputs: ['image'],
+    // define the computation triggered by the widget
     onUpdate (ctx) {
         const { inputs: { image }, params: { angle, scale } } = ctx;
         const dst = new cv.Mat();
@@ -21,16 +36,24 @@ const Widget = widgets.define('Widget', {
     }
 });
 
-const widget = Widget.create();
-widget.observable.subscribe( output => {
+// create a widget instance from the template
+const rotation = Rotation.create();
+
+// attach the widget to the image viewer
+rotation.observable.subscribe( output => {
     imviewer.show(output);
     output.delete();
 });
 
-widgets.show(widget);
+// display the image widget
+widgets.show(rotation);
 
-const img = imsource.read();
-widget.setInput('image', img);
+// set the loaded image as the widget input
+rotation.setInput('image', img);
+
+// To learn more about OpenCV for JS,
+// check out the tutorials at
+// https://docs.opencv.org/3.4.1/d5/d10/tutorial_js_root.html
 `;
 
 export default WIDGETS;

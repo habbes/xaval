@@ -17,11 +17,15 @@ export function createWidgetTemplate (name: string, args: WidgetTemplateCreateAr
         onUpdate: args.onUpdate
     };
     for (let paramName in args.params) {
+        const rawParams = args.params[paramName];
         const type = <WidgetArgDataType>args.params[paramName].type || WidgetArgDataType.Number;
         const control = args.params[paramName].control = WidgetArgControlType.Slider;
         opts.params[paramName] = {
             type,
-            control
+            control,
+            initial: rawParams.initial,
+            min: rawParams.min,
+            max: rawParams.max
         };
     }
     if (Array.isArray(args.inputs)) {

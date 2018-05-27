@@ -46,6 +46,17 @@ function createHtml (model: WidgetModel) {
 function createParamControl (name: string, model: WidgetModel): HTMLElement {
     const input = document.createElement('input');
     input.type = 'range';
+    input.value = model.state.params[name];
+    const paramOpts = model.opts.params[name];
+    if ('min' in paramOpts) {
+        input.min = String(paramOpts.min);
+    }
+    if ('max' in paramOpts) {
+        input.max = String(paramOpts.max);
+    }
+    if ('step' in paramOpts) {
+        input.step = String(paramOpts.step);
+    }
     input.addEventListener('input', (e: Event) => {
         const value = Number(input.value);
         model.setParam(name, value);

@@ -24,6 +24,10 @@ export interface WidgetParams {
 export interface WidgetParamOpts {
     type: WidgetArgDataType;
     control: WidgetArgControlType;
+    initial?: any;
+    min?: number;
+    max?: number;
+    step?: number;
 }
 
 export interface WidgetInputs {
@@ -58,6 +62,10 @@ export interface WidgetTemplateCreateArgs {
         [paramName: string]: { 
             type?: string;
             control?: string;
+            initial?: any;
+            min?: number;
+            max?: number;
+            step?: number;
         }
     };
     inputs: string[] | {

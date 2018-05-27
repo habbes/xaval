@@ -1,5 +1,5 @@
 import {Subject} from 'rxjs';
-import { WidgetModel, WidgetOpts, WidgetModelContext, WidgetArgDataType } from "./types";
+import { WidgetModel, WidgetOpts, WidgetModelContext, WidgetArgDataType, WidgetParams } from "./types";
 
 export function createWidgetCreateFunction (opts: WidgetOpts)  {
     function create () {
@@ -43,21 +43,22 @@ function initWidgetModelState (opts: WidgetOpts): WidgetModelContext {
     };
     for (let paramName in opts.params) {
         const param = opts.params[paramName];
-        let value: any;
-        switch (param.type) {
-            case WidgetArgDataType.Number:
-                value = 0;
-                break;
-            case WidgetArgDataType.String:
-                value = '';
-                break;
-            case WidgetArgDataType.Any:
-                value = null;
-        }
+        let value: any = 'initial' in param ? param.initial : getDefaultInitialValueForType(param.type);
         state.params[paramName] = value;
     }
     for (let inputName in opts.inputs) {
         state.inputs[inputName] = null;
     }
     return state;
+}
+
+function getDefaultInitialValueForType (type: WidgetArgDataType): any {
+    switch (type) {
+        case WidgetArgDataType.Number:
+            return 0;
+        case WidgetArgDataType.String:
+            return '';
+        default:
+            return null;
+    }
 }

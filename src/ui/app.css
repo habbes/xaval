@@ -1,7 +1,7 @@
 body {
     padding: 0;
     margin: 0;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
 }
 
 #appContainer {
@@ -14,13 +14,21 @@ body {
 #header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     height: 50px;
-    background-color: #0B4E4D;
+    background-color: #fff;
     padding-right: 20px;
     padding-left: 20px;
-    color: #73B970;
+    color: #3f8060;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+#logo {
+    margin-right: 100px;
+}
+
+#header .header-main {
+    flex-grow: 1;
 }
 
 #status {
@@ -34,7 +42,7 @@ body {
 
 #editorContainer {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 1fr;
 }
 
 #editorHeader {
@@ -47,16 +55,17 @@ body {
 
 #runButton {
     padding: 10px 15px;
-    background-color: #00DFBC;
-    border: none;
+    border: 1px solid #02ceae;
+    font-family: inherit;
+    color: #028c76;
 }
 
 #runButton:hover {
-    border: 2px solid #40956C;
+    border: 2px solid #02ceae;
 }
 
 #runButton:active {
-    background-color: #40956C;
+    background-color: #02ceae;
 }
 
 #ioContainer {
@@ -91,4 +100,68 @@ body {
 
 #imageSource img {
     height: 100px;
+}
+
+#imageSource img.empty {
+    display: none;
+}
+
+#imageSource .image-input {
+    cursor: pointer;
+    color: #9a9ba2;
+    font-size: 0.8em;
+}
+
+#imageSource input {
+    display: none;
+}
+
+#widgetManager {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: -1;
+}
+
+.widget {
+    z-index: 10;
+    position: absolute;
+    border: 1px solid #d8d8d8;
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px #dadada;
+}
+
+.widget-title {
+    padding: 3px 10px;
+    background-color: #f7f7f7;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #848080;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.widget-content {
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.widget .params-container {
+    color: #6f6d6d;
+    font-size: 0.6em;
+}
+
+.widget .param-input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.widget .param-input-container input[type='range'] {
+   flex-grow: 1;
+}
+
+.widget .value-label {
+    width: 20px;
 }

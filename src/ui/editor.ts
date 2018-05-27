@@ -1,5 +1,5 @@
 import { Editor } from '@/types';
-import INITIAL_CODE from '@/samples/quick-intro';
+import INITIAL_CODE from '@/samples/widgets';
 
 export default class implements Editor {
     readonly container: HTMLElement;
@@ -18,7 +18,7 @@ export default class implements Editor {
         this.editor.session.setMode("ace/mode/javascript");
         this.editor.setShowPrintMargin(false);
         this.editor.clearSelection();
-        this.runBtn = el.querySelector('button');
+        this.runBtn = document.querySelector('#runButton');
         this.run = this.run.bind(this);
         this.runBtn.addEventListener('click', this.run);
     }

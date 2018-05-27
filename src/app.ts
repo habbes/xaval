@@ -19,12 +19,14 @@ export default class App {
         const execute = Function(
             'imsource',
             'imviewer',
+            'widgets',
             `"use strict";${source}`
         );
 
         return execute(
             this.args.imageSource,
-            this.args.imageViewer
+            this.args.imageViewer,
+            this.args.widgetManager
         );
     }
 }

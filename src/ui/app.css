@@ -104,4 +104,5 @@ body {
 
 .widget {
     z-index: 10;
+    position: absolute;
 }

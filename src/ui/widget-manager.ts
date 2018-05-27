@@ -17,7 +17,6 @@ export class WidgetManager {
 
     public define (templateName: string, opts: WidgetTemplateCreateArgs) {
         const template = createWidgetTemplate(templateName, opts);
-        console.log('tpl', template);
         this.templates[templateName] = template;
         return template;
     }

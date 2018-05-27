@@ -19,6 +19,7 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
             },
             setParam (name: string, value: any) {
                 this.state.params[name] = value;
+                console.log('setting', name, value);
                 this.update();
             },
             get observable () {
@@ -27,6 +28,7 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
             update () {
                 const output = this.opts.onUpdate(this.state);
                 source.next(output);
+                console.log('update called', this.state);
             }
         }
 

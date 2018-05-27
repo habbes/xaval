@@ -27,7 +27,6 @@ function createHtml (model: WidgetModel) {
     // TODO: is it necessary to create a node.widget reference?
     node.widget = model;
     const params = model.opts.params;
-    console.log('params', params, model);
     const paramContainer = node.querySelector('.params-container');
     for (let paramName in params) {
         const control = createParamControl(paramName, model);
@@ -41,6 +40,7 @@ function createParamControl (name: string, model: WidgetModel): HTMLElement {
     input.type = 'range';
     input.addEventListener('input', (e: Event) => {
         const value = Number(input.value);
+        console.log('value', value);
         model.setParam(name, value);
     });
     const tpl = 

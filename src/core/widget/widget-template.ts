@@ -9,7 +9,6 @@ import {
 import { createWidgetCreateFunction } from './widget-model';
 
 export function createWidgetTemplate (name: string, args: WidgetTemplateCreateArgs): WidgetTemplate {
-    console.log(args);
     const opts: WidgetOpts = {
         name,
         params: {},
@@ -25,7 +24,8 @@ export function createWidgetTemplate (name: string, args: WidgetTemplateCreateAr
             control,
             initial: rawParams.initial,
             min: rawParams.min,
-            max: rawParams.max
+            max: rawParams.max,
+            step: rawParams.step
         };
     }
     if (Array.isArray(args.inputs)) {

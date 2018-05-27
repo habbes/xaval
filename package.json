@@ -1,6 +1,6 @@
 {
   "name": "xaval",
-  "version": "0.3.0",
+  "version": "",
   "description": "Interactive web-based playground for computer vision and image processing",
   "private": true,
   "scripts": {

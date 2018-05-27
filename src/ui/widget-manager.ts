@@ -10,6 +10,7 @@ export class WidgetManager {
     readonly el: HTMLElement;
     private templates: {[name: string]: WidgetTemplate } = {};
     private widgets: WidgetView[] = [];
+    private nextWidgetId = 1;
 
     constructor (el: HTMLElement) {
         this.el = el;
@@ -28,6 +29,8 @@ export class WidgetManager {
 
     public show(widget: WidgetModel) {
         const view = new WidgetView(widget);
+        view.el.id = `widget${this.nextWidgetId}`;
+        this.nextWidgetId += 1;
         this.el.appendChild(view.el);
         this.widgets.push(view);
     }

@@ -34,6 +34,12 @@ function createHtml (model: WidgetModel) {
         const control = createParamControl(paramName, model);
         paramContainer.appendChild(control);
     }
+    const header = <HTMLDivElement>node.querySelector('.widget-title');
+    header.draggable = true;
+    header.ondragstart = (ev) => {
+        ev.dataTransfer.setData('id', node.id);
+        ev.dataTransfer.dropEffect = 'move';
+    };
     return node;
 }
 

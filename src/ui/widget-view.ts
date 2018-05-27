@@ -40,7 +40,6 @@ function createParamControl (name: string, model: WidgetModel): HTMLElement {
     input.type = 'range';
     input.addEventListener('input', (e: Event) => {
         const value = Number(input.value);
-        console.log('value', value);
         model.setParam(name, value);
     });
     const tpl = 

@@ -38,7 +38,7 @@ export function createWidgetTemplate (name: string, args: WidgetTemplateCreateAr
            }
        }
     }
-    console.log('opts', opts);
+
     return {
         opts,
         create: createWidgetCreateFunction(opts)

@@ -57,9 +57,13 @@ function createParamControl (name: string, model: WidgetModel): HTMLElement {
     if ('step' in paramOpts) {
         input.step = String(paramOpts.step);
     }
+    const valueLabel = document.createElement('span');
+    valueLabel.className = 'value-label';
+    valueLabel.textContent = input.value;
     input.addEventListener('input', (e: Event) => {
         const value = Number(input.value);
         model.setParam(name, value);
+        node.querySelector('.value-label').textContent = String(value);
     });
     const tpl = 
     `<div class="param-label">${name}</div>
@@ -69,5 +73,6 @@ function createParamControl (name: string, model: WidgetModel): HTMLElement {
     node.className = 'param-control';
     node.innerHTML = tpl;
     node.querySelector('.param-input-container').appendChild(input);
+    node.querySelector('.param-input-container').appendChild(valueLabel);
     return node;
 } 

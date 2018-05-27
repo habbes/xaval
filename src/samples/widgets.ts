@@ -18,7 +18,8 @@ const Rotation = widgets.define('Rotation', {
             type: 'number',
             initial: 1,
             min: 0,
-            max: 5
+            max: 5,
+            step: 0.1
         }
     },
     // define inputs

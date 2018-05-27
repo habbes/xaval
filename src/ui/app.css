@@ -135,12 +135,19 @@ body {
 
 .widget .params-container {
     color: #6f6d6d;
-}
-
-.widget .param-label {
     font-size: 0.6em;
 }
 
+.widget .param-input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .widget .param-input-container input[type='range'] {
-    width: 100%;
+   flex-grow: 1;
+}
+
+.widget .value-label {
+    width: 20px;
 }

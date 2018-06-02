@@ -47,7 +47,7 @@ rotation.observable.subscribe( output => {
 });
 
 // display the image widget
-widgets.show(rotation);
+widgets.add(rotation);
 
 // set the loaded image as the widget input
 rotation.setInput('image', img);

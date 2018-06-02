@@ -43,10 +43,7 @@ const Rotation = widgets.define('Rotation', {
 const rotation = Rotation.create();
 
 // attach the widget to the image viewer
-rotation.observable.subscribe(({ image }) => {
-    imviewer.show(image);
-    image.delete();
-});
+rotation.pipeOutput('image', imviewer);
 
 // display the image widget
 widgets.add(rotation);

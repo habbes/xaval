@@ -18,8 +18,20 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
                 this.state.inputs[name] = value;
                 this.update();
             },
+            setInputs (inputs) {
+                Object.keys(inputs).forEach(name => {
+                    this.state.inputs[name] = inputs[name];
+                });
+                this.update();
+            },
             setParam (name: string, value: any) {
                 this.state.params[name] = value;
+                this.update();
+            },
+            setParams (params) {
+                Object.keys(params).forEach(name => {
+                    this.state.params[name] = params[name];
+                });
                 this.update();
             },
             get observable () {

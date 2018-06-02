@@ -133,6 +133,10 @@ body {
     box-shadow: 1px 1px 3px #dadada;
 }
 
+.widget.hidden {
+    display: none;
+}
+
 .widget-title {
     padding: 3px 10px;
     background-color: #f7f7f7;

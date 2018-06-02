@@ -14,7 +14,8 @@ export interface WidgetOpts {
     name: string;
     params: WidgetParams;
     inputs: WidgetInputs;
-    onUpdate(ctx: WidgetModelContext): any;
+    outputs: WidgetOutputs;
+    onUpdate(ctx: WidgetModelContext): {[outputName: string]: any};
 }
 
 export interface WidgetParams {
@@ -35,6 +36,14 @@ export interface WidgetInputs {
 }
 
 export interface WidgetInputOpts {
+    type: WidgetArgDataType;
+}
+
+export interface WidgetOutputs {
+    [outputName: string]: WidgetOutputOpts;
+}
+
+export interface WidgetOutputOpts {
     type: WidgetArgDataType;
 }
 
@@ -73,6 +82,11 @@ export interface WidgetTemplateCreateArgs {
             type?: string
         }
     };
+    outputs: string[] | {
+        [outputName: string]: {
+            type?: string
+        }
+    }
     onUpdate (ctx: WidgetModelContext): any;
 }
 

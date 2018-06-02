@@ -13,8 +13,11 @@ export function createWidgetTemplate (name: string, args: WidgetTemplateCreateAr
         name,
         params: {},
         inputs: {},
+        outputs: {},
         onUpdate: args.onUpdate
     };
+
+    // params
     for (let paramName in args.params) {
         const rawParams = args.params[paramName];
         const type = <WidgetArgDataType>args.params[paramName].type || WidgetArgDataType.Number;
@@ -28,6 +31,8 @@ export function createWidgetTemplate (name: string, args: WidgetTemplateCreateAr
             step: rawParams.step
         };
     }
+
+    // inputs
     if (Array.isArray(args.inputs)) {
         for (let inputName of args.inputs) {
             opts.inputs[inputName] = {
@@ -41,6 +46,22 @@ export function createWidgetTemplate (name: string, args: WidgetTemplateCreateAr
                type: <WidgetArgDataType>args.inputs[inputName].type || WidgetArgDataType.Any
            }
        }
+    }
+
+    // outputs
+    if (Array.isArray(args.outputs)) {
+        for (let outputName of args.outputs) {
+            opts.outputs[outputName] = {
+                type: WidgetArgDataType.Any
+            }
+        }
+    }
+    else {
+        for (let outputName in args.outputs) {
+            opts.outputs[outputName] = {
+                type: <WidgetArgDataType>args.outputs[outputName].type || WidgetArgDataType.Any
+            }
+        }
     }
 
     return {

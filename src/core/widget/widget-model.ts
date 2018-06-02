@@ -1,5 +1,6 @@
 import {Subject} from 'rxjs';
-import { WidgetModel, WidgetOpts, WidgetModelContext, WidgetArgDataType, WidgetParams } from "./types";
+import { WidgetModel, WidgetOpts, WidgetModelContext, WidgetArgDataType, WidgetParams, WidgetUpdateResult } from "./types";
+import { DataSink } from 'types';
 
 export function createWidgetCreateFunction (opts: WidgetOpts)  {
     function create () {
@@ -25,8 +26,18 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
                 return source;
             },
             update () {
-                const output = this.opts.onUpdate(this.state);
-                source.next(output);
+                const outputs = this.opts.onUpdate(this.state);
+                source.next(outputs);
+            },
+            pipe (dest: DataSink<any>): DataSink<any> {
+                source.subscribe(outputs => dest.next(outputs));
+                return dest;
+            },
+            pipeOutput (name: string, dest: DataSink<any>): DataSink<any> {
+                source.subscribe((outputs: WidgetUpdateResult) => {
+                    dest.next(outputs[name]);
+                });
+                return dest;
             }
         }
 

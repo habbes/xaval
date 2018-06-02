@@ -8,7 +8,7 @@ export interface Editor {
     setRunHandler(handler: (source: string) => void): void;
 }
 
-export interface ImageViewer {
+export interface ImageViewer extends DataSink<any> {
     show (mat: any): void;
 }
 
@@ -29,8 +29,9 @@ export interface HtmlInputEvent extends Event {
 
 export interface DataSource<T> {
     readonly observable: Observable<T>;
+    pipe (dest: DataSink<T>): DataSink<T>;
 }
 
 export interface DataSink<T> {
-    readonly observer: Observer<T>
+    next (value?: T): void;
 }

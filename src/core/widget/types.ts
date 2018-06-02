@@ -18,6 +18,10 @@ export interface WidgetOpts {
     onUpdate(ctx: WidgetModelContext): {[outputName: string]: any};
 }
 
+export interface WidgetUpdateResult {
+    [outputName: string]: any;
+}
+
 export interface WidgetParams {
     [paramName: string]: WidgetParamOpts;
 }
@@ -56,7 +60,7 @@ export interface WidgetModelContext {
     }
 }
 
-export interface WidgetModel extends DataSource<any> {
+export interface WidgetModel extends DataSource<WidgetUpdateResult> {
     opts: WidgetOpts;
     state: WidgetModelContext;
     setInput(inputName: string, value: any): void;
@@ -64,6 +68,7 @@ export interface WidgetModel extends DataSource<any> {
     setParam(paramName: string, value: any): void;
     getParam(paramName: string): any;
     update(): any;
+    pipeOutput(name: string, dest: DataSink<any>): DataSink<any>;
 }
 
 export interface WidgetTemplateCreateArgs {

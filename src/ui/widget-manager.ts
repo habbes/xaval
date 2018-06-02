@@ -8,12 +8,19 @@ import { WidgetView } from './widget-view';
 
 const WIDGET_HIDDEN_CLASS = 'hidden';
 
+/**
+ * creates and manages widget templates and widgets on screen
+ */
 export class WidgetManager {
     readonly el: HTMLElement;
     private templates: {[name: string]: WidgetTemplate } = {};
     private widgets: {[widgetId: string]: WidgetView } = {};
     private nextWidgetId = 1;
 
+    /**
+     * 
+     * @param el container element for the widgets
+     */
     constructor (el: HTMLElement) {
         this.el = el;
     }

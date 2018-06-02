@@ -31,11 +31,14 @@ export class WidgetManager {
 
     /**
      * creates a new widget based on the specified template
+     * and adds it to the widget manager then displays it.
+     * Returns the id of the widget
      * @param templateName name of a registered template
      */
-    public create (templateName: string) {
+    public create (templateName: string): string {
         const template = this.templates[templateName];
-        return template.create();
+        const widget = template.create();
+        return this.add(widget);
     }
 
     /**
@@ -55,15 +58,19 @@ export class WidgetManager {
         this.templates[name] = template;
     }
 
-    public getWidget (widgetId: string): WidgetModel|undefined {
+    /**
+     * gets widget by its id
+     * @param widgetId
+     */
+    public get (widgetId: string): WidgetModel|undefined {
         const widget = this.widgets[widgetId];
         return widget && widget.model;
     }
 
     /**
-     * registers and displays the widget
-     * @param widget 
-     * @returns the id of the added widget
+     * adds the widget to the widget manager and displays.
+     * Returns the id of the widget
+     * @param widget
      */
     public add (widget: WidgetModel): string {
         const view = new WidgetView(widget);

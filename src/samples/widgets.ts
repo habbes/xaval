@@ -24,6 +24,8 @@ const Rotation = widgets.define('Rotation', {
     },
     // define inputs
     inputs: ['image'],
+    // define outputs
+    outputs: ['image'],
     // define the computation triggered by the widget
     onUpdate (ctx) {
         const { inputs: { image }, params: { angle, scale } } = ctx;
@@ -33,7 +35,7 @@ const Rotation = widgets.define('Rotation', {
         const M = cv.getRotationMatrix2D(center, angle, scale);
         cv.warpAffine(image, dst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
         M.delete();
-        return dst;
+        return { image: dst };
     }
 });
 
@@ -41,9 +43,9 @@ const Rotation = widgets.define('Rotation', {
 const rotation = Rotation.create();
 
 // attach the widget to the image viewer
-rotation.observable.subscribe( output => {
-    imviewer.show(output);
-    output.delete();
+rotation.observable.subscribe(({ image }) => {
+    imviewer.show(image);
+    image.delete();
 });
 
 // display the image widget

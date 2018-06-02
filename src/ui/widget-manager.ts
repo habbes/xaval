@@ -124,6 +124,13 @@ export class WidgetManager {
     }
 
     /**
+     * removes all widgets from the widget manager
+     */
+    public removeAll () {
+        Object.keys(this.widgets).forEach(widgetId => this.remove(widgetId));
+    }
+
+    /**
      * shows all widgets in the widget manager
      */
     public showAll () {

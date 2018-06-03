@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     entry: './src/index.ts',
@@ -37,6 +38,7 @@ module.exports = {
     plugins: [
         new HtmlPlugin({
             template: './src/ui/index.html'
-        })
+        }),
+        new MonacoWebpackPlugin()
     ]
 };

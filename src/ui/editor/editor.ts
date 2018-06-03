@@ -1,8 +1,7 @@
-import * as monaco from 'monaco-editor';
 import { Editor } from '@/types';
 import INITIAL_CODE from '@/samples/widgets';
 import { EditorProvider } from './types';
-import { createMonacoEditor } from '.';
+import { createAceEditor } from './ace';
 
 export default class implements Editor {
     readonly container: HTMLElement;
@@ -13,9 +12,8 @@ export default class implements Editor {
 
     constructor (el: HTMLElement) {
         this.container = el;
-
         this.editorEl = el.querySelector('#editor');
-        this.editor = createMonacoEditor(this.editorEl, { value: INITIAL_CODE });
+        this.editor = createAceEditor(this.editorEl, { value: INITIAL_CODE });
         this.runBtn = document.querySelector('#runButton');
         this.run = this.run.bind(this);
         this.runBtn.addEventListener('click', this.run);

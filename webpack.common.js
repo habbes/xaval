@@ -39,6 +39,9 @@ module.exports = {
         new HtmlPlugin({
             template: './src/ui/index.html'
         }),
-        new MonacoWebpackPlugin()
+        // TODO: enable this when using monaco
+        // new MonacoWebpackPlugin({
+        //     languages: ['typescript'],
+        // })
     ]
 };

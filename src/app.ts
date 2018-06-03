@@ -1,4 +1,7 @@
 import { AppNewArgs } from '@/types';
+import { createWidgetTemplate } from '@/core/widget';
+
+const ROOT_MODULE = 'xaval';
 
 export default class App {
     args: AppNewArgs;
@@ -15,18 +18,30 @@ export default class App {
         this.args.editor.focus();
     }
 
+    getRootModule () {
+        return {
+            cv,
+            widgets: this.args.widgetManager,
+            core: {
+                widget: {
+                    createWidgetTemplate
+                },
+            },
+            io: {
+                imageViewer: this.args.imageViewer,
+                imageSource: this.args.imageSource,
+            }
+        }
+    }
+
     runCode (source: string) {
         const execute = Function(
-            'imsource',
-            'imviewer',
-            'widgets',
+            ROOT_MODULE,
             `"use strict";${source}`
         );
 
         return execute(
-            this.args.imageSource,
-            this.args.imageViewer,
-            this.args.widgetManager
+            this.getRootModule()
         );
     }
 }

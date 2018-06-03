@@ -1,11 +1,14 @@
 const WIDGETS =
 `// This example demonstrates how to create custom widgets in Xaval
+// OpenCV.js Tutorials: https://docs.opencv.org/3.4.1/d5/d10/tutorial_js_root.html
+
+const { widgets, io: { imageSource, imageViewer } } = xaval;
 
 // import an image from the import panel at the bottom right, then load it here
-const img = imsource.read();
+const img = imageSource.read();
 
 // define a custom widget template
-const Rotation = widgets.define('Rotation', {
+widgets.define('Rotation', {
     // define parameters for this widget
     params: {
         angle: {
@@ -24,6 +27,8 @@ const Rotation = widgets.define('Rotation', {
     },
     // define inputs
     inputs: ['image'],
+    // define outputs
+    outputs: ['image'],
     // define the computation triggered by the widget
     onUpdate (ctx) {
         const { inputs: { image }, params: { angle, scale } } = ctx;
@@ -33,24 +38,19 @@ const Rotation = widgets.define('Rotation', {
         const M = cv.getRotationMatrix2D(center, angle, scale);
         cv.warpAffine(image, dst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
         M.delete();
-        return dst;
+        return { image: dst };
     }
 });
 
 // create a widget instance from the template
-const rotation = Rotation.create();
+const widgetId = widgets.create('Rotation');
+const rotation = widgets.get(widgetId);
 
 // attach the widget to the image viewer
-rotation.observable.subscribe( output => {
-    imviewer.show(output);
-    output.delete();
-});
-
-// display the image widget
-widgets.show(rotation);
+rotation.outputs.image.pipe(imageViewer);
 
 // set the loaded image as the widget input
-rotation.setInput('image', img);
+rotation.inputs.image.next(img);
 
 // To learn more about OpenCV for JS,
 // check out the tutorials at

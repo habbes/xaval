@@ -18,4 +18,11 @@ export default class implements ImageViewer {
     show (mat: any) {
         cv.imshow(this.canvas.id, mat);
     }
+
+    next (mat: any) {
+        this.show(mat);
+        if (mat.delete) {
+            mat.delete();
+        }
+    }
 }

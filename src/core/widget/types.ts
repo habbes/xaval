@@ -1,4 +1,5 @@
 import { DataSink, DataSource } from '@/types';
+import { Observable } from 'rxjs';
 
 export enum WidgetArgDataType {
     Any = 'any',
@@ -63,6 +64,8 @@ export interface WidgetModelContext {
 export interface WidgetModel extends DataSource<WidgetUpdateResult> {
     opts: WidgetOpts;
     state: WidgetModelContext;
+    inputs: {[name: string]: DataSink<any>},
+    outputs: {[name: string]: DataSource<any>},
     setInput(inputName: string, value: any): void;
     setInputs(inputs: {[name: string]: any}): void;
     getInput(inputName: string): any;
@@ -71,6 +74,7 @@ export interface WidgetModel extends DataSource<WidgetUpdateResult> {
     getParam(paramName: string): any;
     update(): any;
     pipeOutput(name: string, dest: DataSink<any>): DataSink<any>;
+    getOutputObservable(name: string): Observable<any>;
 }
 
 export interface WidgetTemplateCreateArgs {

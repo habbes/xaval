@@ -1,13 +1,16 @@
-import {Subject} from 'rxjs';
+import { Subject, NextObserver, Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 import { WidgetModel, WidgetOpts, WidgetModelContext, WidgetArgDataType, WidgetParams, WidgetUpdateResult } from "./types";
 import { DataSink } from 'types';
 
 export function createWidgetCreateFunction (opts: WidgetOpts)  {
     function create () {
         const source = new Subject();
-        const widget: WidgetModel =  {
+        const widget: WidgetModel = {
             opts,
             state: initWidgetModelState(opts),
+            inputs: {},
+            outputs: {},
             getInput (name: string) {
                 return this.state.inputs[name];
             },
@@ -50,13 +53,42 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
                     dest.next(outputs[name]);
                 });
                 return dest;
+            },
+            getOutputObservable(name: string): Observable<any> {
+                return source.pipe(pluck(name));
             }
         }
+
+        setupInputDataSinks(widget);
+        setupOutputDataSources(widget);
 
         return widget;
     }
 
     return create;
+}
+
+function setupInputDataSinks (widget: WidgetModel) {
+    Object.keys(widget.opts.inputs).forEach(name => {
+        widget.inputs[name] = {
+            next (value: any) {
+                widget.setInput(name, value);
+            }
+        };
+    });
+}
+
+function setupOutputDataSources (widget: WidgetModel) {
+    Object.keys(widget.opts.outputs).forEach(name => {
+        widget.outputs[name] = {
+            get observable () {
+                return widget.getOutputObservable(name);
+            },
+            pipe (dest: DataSink<any>): DataSink<any> {
+                return widget.pipeOutput(name, dest);
+            }
+        };
+    });
 }
 
 function initWidgetModelState (opts: WidgetOpts): WidgetModelContext {

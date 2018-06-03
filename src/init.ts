@@ -4,7 +4,7 @@ import {
     ImageSource,
     ImageViewer,
     WidgetManager
-} from './ui/index';
+} from './ui';
 import './ui/app.css';
 
 

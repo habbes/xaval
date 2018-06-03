@@ -1,23 +1,19 @@
 import { Editor } from '@/types';
 import INITIAL_CODE from '@/samples/widgets';
+import { EditorProvider } from './types';
+import { createAceEditor } from './ace';
 
 export default class implements Editor {
     readonly container: HTMLElement;
     readonly editorEl: HTMLElement;
     readonly runBtn: HTMLButtonElement;
-    readonly editor: any;
+    readonly editor: EditorProvider;
     runHandler: (source: string) => void;
 
     constructor (el: HTMLElement) {
         this.container = el;
-
         this.editorEl = el.querySelector('#editor');
-        this.editor = ace.edit(this.editorEl);
-        this.editor.setValue(INITIAL_CODE);
-        this.editor.setTheme("ace/theme/xcode");
-        this.editor.session.setMode("ace/mode/javascript");
-        this.editor.setShowPrintMargin(false);
-        this.editor.clearSelection();
+        this.editor = createAceEditor(this.editorEl, { value: INITIAL_CODE });
         this.runBtn = document.querySelector('#runButton');
         this.run = this.run.bind(this);
         this.runBtn.addEventListener('click', this.run);

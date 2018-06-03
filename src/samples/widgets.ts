@@ -1,8 +1,10 @@
 const WIDGETS =
 `// This example demonstrates how to create custom widgets in Xaval
 
+const { widgets, io: { imageSource, imageViewer } } = xaval;
+
 // import an image from the import panel at the bottom right, then load it here
-const img = imsource.read();
+const img = imageSource.read();
 
 // define a custom widget template
 widgets.define('Rotation', {
@@ -44,7 +46,7 @@ const widgetId = widgets.create('Rotation');
 const rotation = widgets.get(widgetId);
 
 // attach the widget to the image viewer
-rotation.outputs.image.pipe(imviewer);
+rotation.outputs.image.pipe(imageViewer);
 
 // set the loaded image as the widget input
 rotation.inputs.image.next(img);

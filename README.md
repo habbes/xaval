@@ -10,13 +10,13 @@ Interactive web-based playground for computer vision and image processing, usefu
 - [OpenCV](https://docs.opencv.org/3.4.1/d5/d10/tutorial_js_root.html) is preloaded
 - You can import your images
 - Simple API for loading input images and displaying out images
-- Support for defining custom widgets that control function parameters in real time
+- Support for custom widgets and pipelines that control function parameters in real time
 
 ## Planned Features
 
 In no particular order, here are some of the features planned:
 
-- Full-feature custom widgets support, including creating pipelines, multiple control types, automatic data validation, multiple outputs, multiple sources, etc.
+- Full-feature custom widgets support, including creating pipelines, multiple control types, automatic data validation, etc.
 - Support for Tensorflow.js
 - File library that supports importing multiple files
 - Load images/videos from the web
@@ -34,4 +34,4 @@ In no particular order, here are some of the features planned:
 - `npm run start`: Launches a local development server on [http://localhost:8080](http://localhost:8080)
 - `npm run watch`: Listens for file changes and creates a development build without running the dev server
 - `npm run build`: Packages the app for production
-- `nom run deploy`: Deploys a production build to Firebase static hosting
+- `npm run deploy`: Deploys a production build to Firebase static hosting

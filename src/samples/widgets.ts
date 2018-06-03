@@ -5,7 +5,7 @@ const WIDGETS =
 const img = imsource.read();
 
 // define a custom widget template
-const Rotation = widgets.define('Rotation', {
+widgets.define('Rotation', {
     // define parameters for this widget
     params: {
         angle: {
@@ -40,16 +40,14 @@ const Rotation = widgets.define('Rotation', {
 });
 
 // create a widget instance from the template
-const rotation = Rotation.create();
+const widgetId = widgets.create('Rotation');
+const rotation = widgets.get(widgetId);
 
 // attach the widget to the image viewer
-rotation.pipeOutput('image', imviewer);
-
-// display the image widget
-widgets.add(rotation);
+rotation.outputs.image.pipe(imviewer);
 
 // set the loaded image as the widget input
-rotation.setInput('image', img);
+rotation.inputs.image.next(img);
 
 // To learn more about OpenCV for JS,
 // check out the tutorials at

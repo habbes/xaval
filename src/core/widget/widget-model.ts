@@ -11,6 +11,7 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
             state: initWidgetModelState(opts),
             inputs: {},
             outputs: {},
+            _outputsObservables: {},
             getInput (name: string) {
                 return this.state.inputs[name];
             },
@@ -48,14 +49,18 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
                 source.subscribe(outputs => dest.next(outputs));
                 return dest;
             },
+            subscribe (observer) {
+                return source.subscribe(observer);
+            },
             pipeOutput (name: string, dest: DataSink<any>): DataSink<any> {
-                source.subscribe((outputs: WidgetUpdateResult) => {
-                    dest.next(outputs[name]);
-                });
+                this.getOutputObservable(name).subscribe(dest);
                 return dest;
             },
             getOutputObservable(name: string): Observable<any> {
-                return source.pipe(pluck(name));
+                if (!(name in this._outputsObservables)) {
+                    this._outputsObservables[name] = source.pipe(pluck(name));
+                }
+                return this._outputsObservables[name];  
             }
         }
 
@@ -83,6 +88,9 @@ function setupOutputDataSources (widget: WidgetModel) {
         widget.outputs[name] = {
             get observable () {
                 return widget.getOutputObservable(name);
+            },
+            subscribe (observer) {
+                return widget.getOutputObservable(name).subscribe(observer);
             },
             pipe (dest: DataSink<any>): DataSink<any> {
                 return widget.pipeOutput(name, dest);

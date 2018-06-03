@@ -1,4 +1,4 @@
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, Subscription, NextObserver } from 'rxjs';
 import { WidgetManager } from '@/ui/widget-manager';
 
 export interface Editor {
@@ -29,6 +29,7 @@ export interface HtmlInputEvent extends Event {
 
 export interface DataSource<T> {
     readonly observable: Observable<T>;
+    subscribe (observer: NextObserver<T>): Subscription;
     pipe (dest: DataSink<T>): DataSink<T>;
 }
 

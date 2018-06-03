@@ -66,6 +66,7 @@ export interface WidgetModel extends DataSource<WidgetUpdateResult> {
     state: WidgetModelContext;
     inputs: {[name: string]: DataSink<any>},
     outputs: {[name: string]: DataSource<any>},
+    _outputsObservables: {[name: string]: Observable<any>};
     setInput(inputName: string, value: any): void;
     setInputs(inputs: {[name: string]: any}): void;
     getInput(inputName: string): any;

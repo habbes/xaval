@@ -3,7 +3,6 @@ const WIDGETS =
 
 const { widgets, io: { imageSource, imageViewer } } = xaval;
 
-
 // import an image from the import panel at the bottom right, then load it here
 const img = imageSource.read();
 

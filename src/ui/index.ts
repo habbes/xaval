@@ -1,10 +1,10 @@
 import Editor from './editor';
-import ImageSource from './image-source';
+import FileLibrary from './file-lib';
 import ImageViewer from './image-viewer';
 
 export {
     Editor,
-    ImageSource,
+    FileLibrary,
     ImageViewer
 };
 

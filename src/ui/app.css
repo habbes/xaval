@@ -4,6 +4,21 @@ body {
     font-family: Montserrat, sans-serif;
 }
 
+.btn {
+    background-color: #fff;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+}
+
+.btn:hover, .btn:active {
+    border-width: 2px;
+}
+
+.btn:focus {
+    outline: none;
+}
+
 #appContainer {
     height: 100vh;
     box-sizing: border-box;
@@ -71,6 +86,8 @@ body {
 #ioContainer {
     display: grid;
     grid-template-rows: 1fr auto;
+    min-width: 0;
+    min-height: 0;
 }
 
 #imageViewer {
@@ -91,29 +108,58 @@ body {
     background-color: #fff;
 }
 
-#imageSource {
-    padding: 20px;
-    height: 120px;
+#files {
+    padding: 4px 20px 10px 20px;
+    height: 130px;
     background-color: #fdfdfd;
     border-left: 1px solid #efefef;
+    /* allows thumbnails to scroll instead of causing right panel to expand */
+    min-width: 0;
+    min-height: 0;
 }
 
-#imageSource img {
-    height: 100px;
+#files .files-new {
+    margin-bottom: 5px;
+    padding: 3px 15px;
+    border-color: #b3b3b3;
+    color: #545454;
 }
 
-#imageSource img.empty {
+#filesInput {
     display: none;
 }
 
-#imageSource .image-input {
-    cursor: pointer;
-    color: #9a9ba2;
-    font-size: 0.8em;
+#files .thumbnails {
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-#imageSource input {
-    display: none;
+#files .file-source {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#files .thumbnail {
+    height: 85px;
+    max-width: 100px;
+    margin-right: 15px;
+}
+
+#files .filename {
+    color: #5f6067;
+    font-size: 0.7em;
+    background-color: transparent;
+    border: none;
+    width: auto;
+    max-width: 100px;
+}
+
+#files .filename:focus {
+    outline: none;
 }
 
 #widgetManager {

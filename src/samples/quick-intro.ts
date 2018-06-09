@@ -1,10 +1,10 @@
 const QUICK_INTRO = 
 `// Xaval is a playground for experimenting with computer vision using OpenCV
 
-const { imageSource, imageViewer } = xaval.io;
+const { files, imageViewer } = xaval.io;
 // To get started, import an image from the bottom-left
-// Use \`imageSource.read()\` to load the imported image into an OpenCV matrix
-const img = imageSource.read();
+// Use \`files.readImage(name)\` to load the imported image into an OpenCV matrix
+const img = files.readImage('file1');
 // Do some image processing and manipulation using OpenCV
 cv.cvtColor(img, img, cv.COLOR_RGBA2GRAY, 0);
 // Then, to display an image, use \`imageViewer.show()\`

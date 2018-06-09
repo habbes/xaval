@@ -11,7 +11,7 @@
     <header id="header">
         <div id="logo">Xaval</div>
         <div class="header-main">
-            <button id="runButton"><i class="fas fa-play"></i> Run</button>
+            <button id="runButton" class="btn"><i class="fas fa-play"></i> Run</button>
         </div>
         <div id="status">OpenCV.js is loading...</div>
     </header>
@@ -23,12 +23,13 @@
             <div id="imageViewer" class="io">
                 <canvas class="canvas"></canvas>
             </div>
-            <div id="imageSource" class="io">
-                <img alt="No Image selected" class="empty" />
-                <div class="image-input">
-                    Click to import image
+            <div id="files" class="io">
+                <button class="btn files-new">
+                    <i class="fas fa-upload"></i> Import
+                </button>
+                <div class="thumbnails">
                 </div>
-                <input id="imageSourceInput" type="file" name="file">
+                <input id="filesInput" type="file" name="file" accept="image/*" multiple>
             </div>
         </div>
     </div>

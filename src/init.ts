@@ -1,7 +1,7 @@
 import App from './app';
 import { 
     Editor,
-    ImageSource,
+    FileLibrary,
     ImageViewer,
     WidgetManager
 } from './ui';
@@ -24,12 +24,12 @@ export default function init () {
 
     const editor = new Editor(document.querySelector('#editorContainer'));
     const imageViewer = new ImageViewer(document.querySelector('#imageViewer'));
-    const imageSource = new ImageSource(document.querySelector('#imageSource'));
+    const files = new FileLibrary(document.querySelector('#files'));
     const widgetManager = new WidgetManager(document.querySelector('#main'));
 
     const app = new App({
         editor,
-        imageSource,
+        files,
         imageViewer,
         widgetManager
     });

@@ -12,4 +12,11 @@ export interface FileLibrary {
      * @returns {cv.Mat} OpenCV matrix containing the image
      */
     readImage(name: string): any;
+
+    /**
+     * changes the name of a file in the library
+     * @param oldName current name of the file
+     * @param newName new name, should be unique in the library
+     */
+    renameFile(oldName: string, newName: string): any;
 }

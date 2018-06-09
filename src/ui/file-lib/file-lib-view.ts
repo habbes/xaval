@@ -33,12 +33,17 @@ export default class FileLibView implements FileLibrary {
         const name = filename || id;
         const source = new ImageSource(fileUrl, id)
         source.el.id = id;
-        this.files[name] = {
+        const file: FileSource = {
             type: 'image',
             id,
+            name,
             source: source
         };
+        this.files[name] = file;
         this.addFileEl(source.el);
+        source.onNameChanged((newName) => {
+            this.onFilenameChanged(file.name, newName);
+        });
     }
 
     readImage (name: string): any {
@@ -48,6 +53,20 @@ export default class FileLibView implements FileLibrary {
         return file && cv.imread(file.source.image);
     }
 
+    renameFile(oldName: string, newName: string) {
+        const file = this.files[oldName];
+        if (newName in this.files) {
+            console.log('new', newName, this.files);
+            alert(`There's already an imported file called '${newName}'.`);
+            file.source.name = oldName;
+            return;
+        }
+        this.files[newName] = file;
+        delete this.files[oldName];
+        file.source.name = newName;
+        file.name = newName;
+    }
+
     private nextId (): string {
         return `file${this.idCounter++}`;
     }
@@ -55,10 +74,15 @@ export default class FileLibView implements FileLibrary {
     private addFileEl (el: HTMLElement) {
         this.thumbnailsEl.appendChild(el);
     }
+
+    private onFilenameChanged (oldName: string, newName: string) {
+        this.renameFile(oldName, newName);
+    }
 }
 
 interface FileSource {
     type: 'image',
     id: string,
+    name: string,
     source: ImageSource
 }

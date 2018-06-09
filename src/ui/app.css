@@ -15,6 +15,10 @@ body {
     border-width: 2px;
 }
 
+.btn:focus {
+    outline: none;
+}
+
 #appContainer {
     height: 100vh;
     box-sizing: border-box;
@@ -121,7 +125,7 @@ body {
     color: #545454;
 }
 
-#files input {
+#filesInput {
     display: none;
 }
 
@@ -133,6 +137,12 @@ body {
     justify-content: flex-start;
 }
 
+#files .file-source {
+    display: flex;
+    flex-direction: column;
+
+}
+
 #files .thumbnail {
     height: 85px;
     max-width: 100px;
@@ -142,9 +152,15 @@ body {
 #files .filename {
     color: #5f6067;
     font-size: 0.7em;
-    text-align: center;
+    background-color: transparent;
+    border: none;
+    width: auto;
+    max-width: 100px;
 }
 
+#files .filename:focus {
+    outline: none;
+}
 
 #widgetManager {
     position: absolute;

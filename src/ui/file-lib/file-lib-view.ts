@@ -22,15 +22,12 @@ export default class FileLibView implements FileLibrary {
     }
 
     private onFileSelected (e: HtmlInputEvent) {
-        const fileUrl = URL.createObjectURL(e.target.files[0]);
-        this.addImage(fileUrl);
+        const rawFiles = e.target.files;
+        for (let i = 0; i < rawFiles.length; i++) {
+            this.addImage(URL.createObjectURL(rawFiles.item(i)));
+        }
     }
 
-    /**
-     * adds an image to the file source
-     * @param fileUrl object url of the image
-     * @param filename optional name for the file, if not provided, one will be auto-assigned
-     */
     addImage (fileUrl: string, filename: string = '') {
         const id = this.nextId();
         const name = filename || id;
@@ -44,11 +41,6 @@ export default class FileLibView implements FileLibrary {
         this.addFileEl(source.el);
     }
 
-    /**
-     * reads a specified image from the library as an OpenCv matrix
-     * @param name file name
-     * @returns {cv.Mat} OpenCV matrix containing the image
-     */
     readImage (name: string): any {
         console.log(this.files);
         const file = this.files[name];

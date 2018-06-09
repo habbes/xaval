@@ -11,6 +11,9 @@ export function createMonacoEditor (domEl: HTMLElement, opts: EditorInitOpts): E
             enabled: false
         }
     });
+    editor.getModel().updateOptions({
+        tabSize: 2
+    });
     window.addEventListener('resize', () => editor.layout());
     return editor;
 }

@@ -2,10 +2,10 @@ const WIDGETS =
 `// This example demonstrates how to create custom widgets in Xaval
 // OpenCV.js Tutorials: https://docs.opencv.org/3.4.1/d5/d10/tutorial_js_root.html
 
-const { widgets, io: { imageSource, imageViewer } } = xaval;
+const { widgets, io: { files, imageViewer } } = xaval;
 
 // import an image from the import panel at the bottom right, then load it here
-const img = imageSource.read();
+const img = files.readImage('file1');
 
 // define a custom widget template
 widgets.define('Rotation', {

@@ -91,30 +91,35 @@ body {
     background-color: #fff;
 }
 
-#imageSource {
-    padding: 20px;
+#files {
+    padding: 10px 20px;
     height: 120px;
     background-color: #fdfdfd;
     border-left: 1px solid #efefef;
 }
 
-#imageSource img {
-    height: 100px;
+#files .thumbnails {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-#imageSource img.empty {
-    display: none;
+#files .thumbnail {
+    height: 85px;
+    max-width: 100px;
 }
 
-#imageSource .image-input {
-    cursor: pointer;
-    color: #9a9ba2;
+#files .filename {
+    color: #7a7b82;
     font-size: 0.8em;
+    text-align: center;
 }
 
-#imageSource input {
+#files input {
     display: none;
 }
+
 
 #widgetManager {
     position: absolute;

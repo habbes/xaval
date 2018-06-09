@@ -29,7 +29,7 @@ export default class App {
             },
             io: {
                 imageViewer: this.args.imageViewer,
-                imageSource: this.args.imageSource,
+                files: this.args.files,
             }
         }
     }

@@ -1,5 +1,6 @@
 import { Observable, Observer, Subscription, NextObserver } from 'rxjs';
 import { WidgetManager } from '@/ui/widget-manager';
+import { FileLibrary } from '@/core/files';
 
 export interface Editor {
     source: string;
@@ -19,7 +20,7 @@ export interface ImageSource {
 export interface AppNewArgs {
     editor: Editor;
     imageViewer: ImageViewer;
-    imageSource: ImageSource;
+    files: FileLibrary;
     widgetManager: WidgetManager;
 }
 

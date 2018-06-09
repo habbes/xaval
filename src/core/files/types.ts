@@ -18,5 +18,5 @@ export interface FileLibrary {
      * @param oldName current name of the file
      * @param newName new name, should be unique in the library
      */
-    renameFile(oldName: string, newName: string): any;
+    rename(oldName: string, newName: string): any;
 }

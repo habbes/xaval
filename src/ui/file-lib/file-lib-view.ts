@@ -53,7 +53,7 @@ export default class FileLibView implements FileLibrary {
         return file && cv.imread(file.source.image);
     }
 
-    renameFile(oldName: string, newName: string) {
+    rename(oldName: string, newName: string) {
         const file = this.files[oldName];
         if (newName in this.files) {
             console.log('new', newName, this.files);
@@ -76,7 +76,7 @@ export default class FileLibView implements FileLibrary {
     }
 
     private onFilenameChanged (oldName: string, newName: string) {
-        this.renameFile(oldName, newName);
+        this.rename(oldName, newName);
     }
 }
 

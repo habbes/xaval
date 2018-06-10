@@ -8,5 +8,16 @@ export function createAceEditor (domEl: HTMLElement, opts: EditorInitOpts): Edit
     editor.session.setMode('ace/mode/javascript');
     editor.setShowPrintMargin(false);
     editor.clearSelection();
-    return editor;
+    return {
+        focus () {
+            editor.focus();
+        },
+        setValue (code: string) {
+            editor.setValue(code);
+            editor.clearSelection();
+        },
+        getValue (): string {
+            return editor.getValue();
+        }
+    };
 }

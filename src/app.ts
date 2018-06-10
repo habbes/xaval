@@ -17,6 +17,7 @@ export default class App {
 
         this.args.samples.onSampleSelected(code => {
             this.args.editor.source = code;
+            this.args.editor.focus();
         });
 
         this.args.editor.focus();

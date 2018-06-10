@@ -11,6 +11,7 @@ Interactive web-based playground for computer vision and image processing, usefu
 - You can import multiple images from your computer
 - Simple API for loading input images and displaying out images
 - Support for custom widgets and pipelines that control function parameters in real time
+- Easy API for working with video streams from a connected camera
 
 ## Planned Features
 
@@ -20,7 +21,7 @@ In no particular order, here are some of the features planned:
 - Support for Tensorflow.js
 - Supporting for importing other file types besides images
 - Load images/videos from the web
-- Video and Webcam support
+- Support for importing videos
 - Background code execution
 - Console/Stdout emulator
 - Multiple code cells

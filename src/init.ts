@@ -3,7 +3,8 @@ import {
     Editor,
     FileLibrary,
     ImageViewer,
-    WidgetManager
+    WidgetManager,
+    CameraManager
 } from './ui';
 import './ui/app.css';
 
@@ -26,12 +27,14 @@ export default function init () {
     const imageViewer = new ImageViewer(document.querySelector('#imageViewer'));
     const files = new FileLibrary(document.querySelector('#files'));
     const widgetManager = new WidgetManager(document.querySelector('#main'));
+    const cameras = new CameraManager();
 
     const app = new App({
         editor,
         files,
         imageViewer,
-        widgetManager
+        widgetManager,
+        cameras
     });
 
     return app;

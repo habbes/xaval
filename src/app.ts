@@ -30,6 +30,7 @@ export default class App {
             io: {
                 imageViewer: this.args.imageViewer,
                 files: this.args.files,
+                cameras: this.args.cameras
             }
         }
     }

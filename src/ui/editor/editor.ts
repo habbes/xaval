@@ -1,5 +1,5 @@
 import { Editor } from '@/types';
-import INITIAL_CODE from '@/samples/widgets';
+import INITIAL_CODE from '@/samples/edge-detection';
 import { EditorProvider } from './types';
 import { createAceEditor } from './ace';
 

@@ -46,10 +46,19 @@ function createHtml (model: WidgetModel) {
 
 function createParamControl (name: string, model: WidgetModel): HTMLElement {
     const param = model.opts.params[name];
+    const node = document.createElement('div');
+    node.className = 'param-control';
+    node.innerHTML = `<div class="param-label">${name}</div>`;
+    let inputContainer: HTMLElement;
     switch (param.control) {
         case WidgetArgControlType.Checkbox:
-            return createCheckbox(name, model);
+            inputContainer = createCheckbox(name, model);
+            break;
         default:
-            return createSlider(name, model);
+            inputContainer = createSlider(name, model);
+            break;
     }
+    inputContainer.classList.add('param-input-container');
+    node.appendChild(inputContainer);
+    return node;
 } 

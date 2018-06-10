@@ -14,27 +14,22 @@ export function createSlider (name: string, model: WidgetModel): HTMLElement {
     if ('step' in paramOpts) {
         input.step = String(paramOpts.step);
     }
+    const container = document.createElement('div');
     const valueLabel = document.createElement('span');
     valueLabel.className = 'value-label';
     valueLabel.textContent = input.value;
     input.addEventListener('input', (e: Event) => {
         const value = Number(input.value);
         model.setParam(name, value);
-        node.querySelector('.value-label').textContent = String(value);
+        container.querySelector('.value-label').textContent = String(value);
     });
-    const tpl = 
-    `<div class="param-label">${name}</div>
-    <div class="param-input-container">
-    </div>`;
-    const node = document.createElement('div');
-    node.className = 'param-control';
-    node.innerHTML = tpl;
-    node.querySelector('.param-input-container').appendChild(input);
-    node.querySelector('.param-input-container').appendChild(valueLabel);
-    return node;
+    container.appendChild(input);
+    container.appendChild(valueLabel);
+    return container;
 }
 
 export function createCheckbox (name: string, model: WidgetModel): HTMLElement {
+    const container = document.createElement('div');
     const input = document.createElement('input');
     input.type = 'checkbox';
     input.checked = model.state.params[name];
@@ -42,13 +37,6 @@ export function createCheckbox (name: string, model: WidgetModel): HTMLElement {
         const value = input.checked;
         model.setParam(name, value);
     });
-    const tpl = 
-    `<div class="param-label">${name}</div>
-    <div class="param-input-container">
-    </div>`;
-    const node = document.createElement('div');
-    node.className = 'param-control';
-    node.innerHTML = tpl;
-    node.querySelector('.param-input-container').appendChild(input);
-    return node;
+    container.appendChild(input);
+    return container;
 }

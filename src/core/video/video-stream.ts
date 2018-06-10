@@ -1,14 +1,14 @@
 import { Subject, NextObserver, Subscription } from 'rxjs';
 import { DataSink, DataSource } from '@/types';
-import { VideoStreamParams, VideoModel } from './types';
+import { VideoStreamParams, VideoSource } from './types';
 
 export default class VideoStream implements DataSource<any> {
     private _source: Subject<any>;
     private _params: VideoStreamParams;
     private _streaming: boolean = false;
-    private _video: VideoModel;
+    private _video: VideoSource;
 
-    constructor (video: VideoModel, params: VideoStreamParams) {
+    constructor (video: VideoSource, params: VideoStreamParams) {
         this._source = new Subject();
         this._params = { ...params };
         this._video = video;

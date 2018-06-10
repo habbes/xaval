@@ -1,6 +1,6 @@
 import { DataSource } from '@/types';
 
-export interface VideoModel {
+export interface VideoSource {
     /**
      * the height of the video
      */

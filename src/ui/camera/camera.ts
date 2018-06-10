@@ -1,6 +1,6 @@
-import { VideoModel, VideoStream, VideoStreamParams } from '@/core/video';
+import { VideoSource, VideoStream, VideoStreamParams } from '@/core/video';
 
-export class Camera implements VideoModel {
+export class Camera implements VideoSource {
     private _video: HTMLVideoElement;
     private _capture: any;
     private _cameraStream: MediaStream;

@@ -32,4 +32,8 @@ export interface VideoStreamParams {
      * frame rate of the video stream
      */
     fps: number;
+    /**
+     * whether the stream should start automatically
+     */
+    autoStart: false;
 }

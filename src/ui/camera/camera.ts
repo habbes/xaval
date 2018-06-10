@@ -6,6 +6,7 @@ export class Camera implements VideoModel {
     private _cameraStream: MediaStream;
     private _stream: VideoStream;
     private _constraints: MediaStreamConstraints;
+    private _captureDest: any;
 
     constructor (constraints: MediaStreamConstraints = { video: true, audio: false }) {
         this._video = document.createElement('video');
@@ -13,9 +14,9 @@ export class Camera implements VideoModel {
     }
 
     /**
-     * requests access to the camera
+     * requests access to the camera and starts playing the video
      */
-    request () {
+    start () {
         if (this._cameraStream) {
             return Promise.resolve();
         }
@@ -51,8 +52,25 @@ export class Camera implements VideoModel {
         return this._video.height;
     }
 
+    /**
+     * OpenCV matrix used to store captured video frame
+     */
+    private get captureDest () {
+        if (!this._captureDest || this._captureDest.isDeleted()) {
+            this._captureDest = new cv.Mat(this.height, this.width, cv.CV_8UC4);
+        }
+        return this._captureDest;
+    }
+
+    private deleteCaptureDest () {
+        if (this._captureDest && !this._captureDest.isDeleted()) {
+            this._captureDest.delete();
+            this._captureDest = null;
+        }
+    }
+
     read (dest?: any) {
-        dest = dest ||  new cv.Mat(this.height, this.width, cv.CV_8UC4);
+        dest = dest ||  this.captureDest;
         this._capture.read(dest);
         return dest;
     }
@@ -62,5 +80,23 @@ export class Camera implements VideoModel {
             this._stream = new VideoStream(this, params);
         }
         return this._stream;
+    }
+
+    /**
+     * stops the camera feed and attached stream (if any)
+     */
+    stop () {
+        if (this._video) {
+            this._video.pause();
+            this._video.srcObject = null;
+        }
+        if (this._cameraStream) {
+            this._cameraStream.getVideoTracks()[0].stop();
+        }
+        if (this._stream) {
+            this._stream.stop();
+            this._stream = null;
+        }
+        this.deleteCaptureDest();
     }
 }

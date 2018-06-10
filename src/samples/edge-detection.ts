@@ -1,6 +1,5 @@
 export default
-`const { cameras, imageViewer } = xaval.io;
-const { widgets } = xaval;
+`const { widgets, io: { cameras, imageViewer } } = xaval;
 
 // start camera feed
 const camera = cameras.getDefault();

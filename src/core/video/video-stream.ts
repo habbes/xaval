@@ -12,9 +12,10 @@ export default class VideoStream implements DataSource<any> {
         this._source = new Subject();
         this._params = { ...params };
         this._video = video;
-        if (this._params.autoStart) {
-            this.start();
-        }
+    }
+
+    get params () {
+        return this._params;
     }
     
     /**

@@ -33,7 +33,8 @@ export interface VideoStreamParams {
      */
     fps: number;
     /**
-     * whether the stream should start automatically
+     * indicates whether the video stream should be started
+     * automatically by its video model
      */
-    autoStart: false;
+    autoStart?: boolean;
 }

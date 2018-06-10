@@ -7,10 +7,13 @@ export class Camera implements VideoModel {
     private _stream: VideoStream;
     private _constraints: MediaStreamConstraints;
     private _captureDest: any;
+    private _onPlayHandler: any;
 
     constructor (constraints: MediaStreamConstraints = { video: true, audio: false }) {
         this._video = document.createElement('video');
         this._constraints = constraints;
+        this._onPlayHandler = this.onVideoPlaying.bind(this);
+        this._video.addEventListener('play', this._onPlayHandler);
     }
 
     /**
@@ -25,6 +28,7 @@ export class Camera implements VideoModel {
             .then(camStream => {
                 this._video.srcObject = camStream;
                 this._cameraStream = camStream;
+                // TODO: this event listener should be removed when the camera is disposed
                 this._video.addEventListener('canplay', () => {
                     this.onVideoReady();
                     resolve();
@@ -42,6 +46,12 @@ export class Camera implements VideoModel {
         this._video.height = this._video.videoHeight;
         this._capture = new cv.VideoCapture(this._video);
         this._video.play();
+    }
+
+    private onVideoPlaying () {
+        if (this._stream && this._stream.params.autoStart) {
+            this._stream.start();
+        }
     }
 
     get width () {
@@ -77,6 +87,7 @@ export class Camera implements VideoModel {
 
     getStream (params: VideoStreamParams) {
         if (!this._stream) {
+            params = { autoStart: true, ...params };
             this._stream = new VideoStream(this, params);
         }
         return this._stream;
@@ -89,6 +100,7 @@ export class Camera implements VideoModel {
         if (this._video) {
             this._video.pause();
             this._video.srcObject = null;
+            this._video.removeEventListener('play', this._onPlayHandler);
         }
         if (this._cameraStream) {
             this._cameraStream.getVideoTracks()[0].stop();

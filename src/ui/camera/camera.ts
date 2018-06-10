@@ -13,7 +13,6 @@ export class Camera implements VideoModel {
         this._video = document.createElement('video');
         this._constraints = constraints;
         this._onPlayHandler = this.onVideoPlaying.bind(this);
-        this._video.addEventListener('play', this._onPlayHandler);
     }
 
     /**
@@ -46,10 +45,11 @@ export class Camera implements VideoModel {
         this._video.height = this._video.videoHeight;
         this._capture = new cv.VideoCapture(this._video);
         this._video.play();
+        this._video.addEventListener('play', this._onPlayHandler);
     }
 
     private onVideoPlaying () {
-        if (this._stream && this._stream.params.autoStart) {
+        if (this._stream && this._stream.params.autoStart && !this._stream.streaming) {
             this._stream.start();
         }
     }
@@ -89,6 +89,9 @@ export class Camera implements VideoModel {
         if (!this._stream) {
             params = { autoStart: true, ...params };
             this._stream = new VideoStream(this, params);
+            if (this._cameraStream && params.autoStart) {
+                this._stream.start();
+            }
         }
         return this._stream;
     }
@@ -104,6 +107,7 @@ export class Camera implements VideoModel {
         }
         if (this._cameraStream) {
             this._cameraStream.getVideoTracks()[0].stop();
+            this._cameraStream = null;
         }
         if (this._stream) {
             this._stream.stop();

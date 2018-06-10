@@ -27,6 +27,10 @@ export default class implements Editor {
         return this.editor.getValue();
     }
 
+    set source (code: string) {
+        this.editor.setValue(code);
+    }
+
     focus () {
         this.editor.focus();
     }

@@ -4,8 +4,10 @@ import {
     FileLibrary,
     ImageViewer,
     WidgetManager,
-    CameraManager
+    CameraManager,
+    SampleManager
 } from './ui';
+import * as codeSamples from '@/samples';
 import './ui/app.css';
 
 
@@ -28,13 +30,21 @@ export default function init () {
     const files = new FileLibrary(document.querySelector('#files'));
     const widgetManager = new WidgetManager(document.querySelector('#main'));
     const cameras = new CameraManager();
+    const samples = new SampleManager(document.querySelector('#samplesMenu'));
+    samples.addSamples({
+        'Quick Intro': codeSamples.QUICK_INTRO,
+        'Widgets': codeSamples.WIDGETS,
+        'Camera': codeSamples.CAMERA,
+        'Edge Detection': codeSamples.EDGE_DETECTION
+    });
 
     const app = new App({
         editor,
         files,
         imageViewer,
         widgetManager,
-        cameras
+        cameras,
+        samples
     });
 
     return app;

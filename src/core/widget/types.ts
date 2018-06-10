@@ -5,10 +5,12 @@ export enum WidgetArgDataType {
     Any = 'any',
     Number = 'number',
     String = 'string',
+    Boolean = 'boolean'
 }
 
 export enum WidgetArgControlType {
-    Slider = 'slider'
+    Slider = 'slider',
+    Checkbox = 'checkbox'
 }
 
 export interface WidgetOpts {

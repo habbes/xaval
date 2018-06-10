@@ -47,7 +47,6 @@ export default class FileLibView implements FileLibrary {
     }
 
     readImage (name: string): any {
-        console.log(this.files);
         const file = this.files[name];
         // TODO: ensure file is of type image
         return file && cv.imread(file.source.image);

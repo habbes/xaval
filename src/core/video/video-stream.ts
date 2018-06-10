@@ -2,7 +2,7 @@ import { Subject, NextObserver, Subscription } from 'rxjs';
 import { DataSink, DataSource } from '@/types';
 import { VideoStreamParams, VideoModel } from './types';
 
-export default class implements DataSource<any> {
+export default class VideoStream implements DataSource<any> {
     private _source: Subject<any>;
     private _params: VideoStreamParams;
     private _streaming: boolean = false;
@@ -51,8 +51,8 @@ export default class implements DataSource<any> {
             return;
         }
         const started = Date.now();
-        const mat = this._video.read();
-        this._source.next(mat);
+        const frame = this._video.read();
+        this._source.next(frame);
         const delay = 1000 / this._params.fps - (Date.now() - started);
         setTimeout(() => this.loop(), delay);
     }

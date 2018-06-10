@@ -22,8 +22,9 @@ widgets.define('EdgeDetection', {
     },
     apertureSize: {
       type: 'number',
-      min: 1,
-      max: 20,
+      min: 3,
+      max: 7,
+      step: 2,
       initial: 3
     },
     l2Gradient: {

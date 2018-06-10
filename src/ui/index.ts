@@ -11,3 +11,4 @@ export {
 export { WidgetManager } from './widget-manager';
 export { WidgetView } from './widget-view';
 export { Camera, CameraManager } from './camera';
+export { SampleManager } from './samples';

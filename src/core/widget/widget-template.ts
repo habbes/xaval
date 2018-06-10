@@ -21,7 +21,7 @@ export function createWidgetTemplate (name: string, args: WidgetTemplateCreateAr
     for (let paramName in args.params) {
         const rawParams = args.params[paramName];
         const type = <WidgetArgDataType>args.params[paramName].type || WidgetArgDataType.Number;
-        const control = args.params[paramName].control = WidgetArgControlType.Slider;
+        const control = <WidgetArgControlType>args.params[paramName].control || getDefaultControlForType(type);
         opts.params[paramName] = {
             type,
             control,
@@ -69,3 +69,14 @@ export function createWidgetTemplate (name: string, args: WidgetTemplateCreateAr
         create: createWidgetCreateFunction(opts)
     };
 };
+
+function getDefaultControlForType (type: WidgetArgDataType): WidgetArgControlType {
+    switch (type) {
+        case WidgetArgDataType.Boolean:
+            return WidgetArgControlType.Checkbox;
+        case WidgetArgDataType.Number:
+            return WidgetArgControlType.Slider;
+        default:
+            return WidgetArgControlType.Slider;
+    }
+}

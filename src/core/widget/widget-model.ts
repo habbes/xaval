@@ -119,6 +119,8 @@ function getDefaultInitialValueForType (type: WidgetArgDataType): any {
     switch (type) {
         case WidgetArgDataType.Number:
             return 0;
+        case WidgetArgDataType.Boolean:
+            return false;
         case WidgetArgDataType.String:
             return '';
         default:

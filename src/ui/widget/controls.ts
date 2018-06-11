@@ -1,4 +1,4 @@
-import { WidgetModel } from "@/core/widget";
+import { WidgetModel, getParamValueFromString } from "@/core/widget";
 
 export function createSlider (name: string, model: WidgetModel): HTMLElement {
     const input = document.createElement('input');
@@ -38,5 +38,30 @@ export function createCheckbox (name: string, model: WidgetModel): HTMLElement {
         model.setParam(name, value);
     });
     container.appendChild(input);
+    return container;
+}
+
+export function createSelect (name: string, model: WidgetModel): HTMLElement {
+    const param = model.opts.params[name];
+    const { type, options } = param;
+    const container = document.createElement('div');
+    const select = document.createElement('select');
+    const initValue = model.getParam(name);
+    console.log('params', param, options);
+    Object.keys(options).forEach(optionVal => {
+        const label = options[optionVal];
+        const option = document.createElement('option');
+        option.value = optionVal;
+        option.textContent = label;
+        if (String(initValue) === optionVal) {
+            option.selected = true;
+        }
+        select.appendChild(option);
+    });
+    select.addEventListener('change', () => {
+        const value = getParamValueFromString(select.value, type);
+        model.setParam(name, value);
+    });
+    container.appendChild(select);
     return container;
 }

@@ -1,8 +1,20 @@
 import { Subject, NextObserver, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
-import { WidgetModel, WidgetOpts, WidgetModelContext, WidgetArgDataType, WidgetParams, WidgetUpdateResult } from "./types";
+import {
+    WidgetModel,
+    WidgetOpts,
+    WidgetModelContext,
+    WidgetArgDataType,
+    WidgetArgControlType,
+    WidgetParams,
+    WidgetUpdateResult } from "./types";
 import { DataSink } from 'types';
 
+/**
+ * returns a function that is used to create widget models
+ * based on the specified options
+ * @param opts 
+ */
 export function createWidgetCreateFunction (opts: WidgetOpts)  {
     function create () {
         const source = new Subject();
@@ -99,7 +111,11 @@ function setupOutputDataSources (widget: WidgetModel) {
     });
 }
 
-function initWidgetModelState (opts: WidgetOpts): WidgetModelContext {
+/**
+ * initializes a widget model's state
+ * @param opts 
+ */
+export function initWidgetModelState (opts: WidgetOpts): WidgetModelContext {
     const state: WidgetModelContext = {
         params: {},
         inputs: {}
@@ -115,7 +131,12 @@ function initWidgetModelState (opts: WidgetOpts): WidgetModelContext {
     return state;
 }
 
-function getDefaultInitialValueForType (type: WidgetArgDataType): any {
+/**
+ * gets the default initial value to use for the given param data type.
+ * This is used when the param is not explicitly initialized
+ * @param type
+ */
+export function getDefaultInitialValueForType (type: WidgetArgDataType): any {
     switch (type) {
         case WidgetArgDataType.Number:
             return 0;
@@ -125,5 +146,37 @@ function getDefaultInitialValueForType (type: WidgetArgDataType): any {
             return '';
         default:
             return null;
+    }
+}
+
+/**
+ * gets the default param control type for the specified param data type
+ * @param type param data type
+ */
+export function getDefaultControlForType (type: WidgetArgDataType): WidgetArgControlType {
+    switch (type) {
+        case WidgetArgDataType.Boolean:
+            return WidgetArgControlType.Checkbox;
+        case WidgetArgDataType.Number:
+            return WidgetArgControlType.Slider;
+        default:
+            return WidgetArgControlType.Slider;
+    }
+}
+
+/**
+ * converts the string value to the appropriate type based on
+ * the specified widget param type
+ * @param value 
+ * @param type 
+ */
+export function getParamValueFromString (value: string, type: WidgetArgDataType) {
+    switch (type) {
+        case WidgetArgDataType.Number:
+            return Number(value);
+        case WidgetArgDataType.Boolean:
+            return Boolean(value);
+        default:
+            return value;
     }
 }

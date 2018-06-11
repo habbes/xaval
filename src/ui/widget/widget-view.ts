@@ -1,7 +1,7 @@
 
 import { template } from 'lodash';
 import { WidgetModel, WidgetArgDataType, WidgetArgControlType } from '@/core/widget';
-import { createCheckbox, createSlider } from './controls';
+import { createCheckbox, createSlider, createSelect } from './controls';
 
 
 export class WidgetView {
@@ -53,6 +53,12 @@ function createParamControl (name: string, model: WidgetModel): HTMLElement {
     switch (param.control) {
         case WidgetArgControlType.Checkbox:
             inputContainer = createCheckbox(name, model);
+            break;
+        case WidgetArgControlType.Select:
+            inputContainer = createSelect(name, model);
+            break;
+        case WidgetArgControlType.Slider:
+            inputContainer = createSlider(name, model);
             break;
         default:
             inputContainer = createSlider(name, model);

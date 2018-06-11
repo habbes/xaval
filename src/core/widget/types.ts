@@ -10,7 +10,8 @@ export enum WidgetArgDataType {
 
 export enum WidgetArgControlType {
     Slider = 'slider',
-    Checkbox = 'checkbox'
+    Checkbox = 'checkbox',
+    Select = 'select'
 }
 
 export interface WidgetOpts {
@@ -36,6 +37,9 @@ export interface WidgetParamOpts {
     min?: number;
     max?: number;
     step?: number;
+    options?: {
+        [value: string]: string
+    }
 }
 
 export interface WidgetInputs {
@@ -150,6 +154,9 @@ export interface WidgetTemplateCreateArgs {
             min?: number;
             max?: number;
             step?: number;
+            options?: {
+                [value: string]: string
+            }
         }
     };
     inputs: string[] | {

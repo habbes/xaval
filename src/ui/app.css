@@ -268,7 +268,9 @@ body {
     align-items: center;
 }
 
-.widget .param-input-container input[type='range'], .param-input-container select {
+.widget .param-input-container input[type='range'],
+.param-input-container select,
+.param-input-container input[type='text'] {
    flex-grow: 1;
 }
 

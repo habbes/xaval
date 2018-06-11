@@ -11,7 +11,8 @@ export enum WidgetArgDataType {
 export enum WidgetArgControlType {
     Slider = 'slider',
     Checkbox = 'checkbox',
-    Select = 'select'
+    Select = 'select',
+    Text = 'text'
 }
 
 export interface WidgetOpts {

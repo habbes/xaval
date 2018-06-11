@@ -159,8 +159,10 @@ export function getDefaultControlForType (type: WidgetArgDataType): WidgetArgCon
             return WidgetArgControlType.Checkbox;
         case WidgetArgDataType.Number:
             return WidgetArgControlType.Slider;
+        case WidgetArgDataType.String:
+            return WidgetArgControlType.Text;
         default:
-            return WidgetArgControlType.Slider;
+            return WidgetArgControlType.Text;
     }
 }
 

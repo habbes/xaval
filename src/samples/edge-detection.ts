@@ -28,10 +28,8 @@ widgets.define('EdgeDetection', {
       initial: 3
     },
     l2Gradient: {
-      type: 'number',
-      min: 0,
-      max: 1,
-      initial: 0
+      type: 'boolean',
+      initial: false
     }
   },
   inputs: ['image'],
@@ -41,7 +39,7 @@ widgets.define('EdgeDetection', {
     const { threshold1, threshold2, apertureSize, l2Gradient } = ctx.params;
     const dst = new cv.Mat();
     cv.cvtColor(image, dst, cv.COLOR_RGBA2GRAY, 0);
-    cv.Canny(dst, dst, threshold1, threshold2, apertureSize, Boolean(l2Gradient));
+    cv.Canny(dst, dst, threshold1, threshold2, apertureSize, l2Gradient);
     return { edges: dst };
   }
 });

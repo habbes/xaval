@@ -1,6 +1,7 @@
 
 import { template } from 'lodash';
-import { WidgetModel } from 'core/widget';
+import { WidgetModel, WidgetArgDataType, WidgetArgControlType } from '@/core/widget';
+import { createCheckbox, createSlider, createSelect, createText } from './controls';
 
 
 export class WidgetView {
@@ -44,35 +45,29 @@ function createHtml (model: WidgetModel) {
 }
 
 function createParamControl (name: string, model: WidgetModel): HTMLElement {
-    const input = document.createElement('input');
-    input.type = 'range';
-    input.value = model.state.params[name];
-    const paramOpts = model.opts.params[name];
-    if ('min' in paramOpts) {
-        input.min = String(paramOpts.min);
-    }
-    if ('max' in paramOpts) {
-        input.max = String(paramOpts.max);
-    }
-    if ('step' in paramOpts) {
-        input.step = String(paramOpts.step);
-    }
-    const valueLabel = document.createElement('span');
-    valueLabel.className = 'value-label';
-    valueLabel.textContent = input.value;
-    input.addEventListener('input', (e: Event) => {
-        const value = Number(input.value);
-        model.setParam(name, value);
-        node.querySelector('.value-label').textContent = String(value);
-    });
-    const tpl = 
-    `<div class="param-label">${name}</div>
-    <div class="param-input-container">
-    </div>`;
+    const param = model.opts.params[name];
     const node = document.createElement('div');
     node.className = 'param-control';
-    node.innerHTML = tpl;
-    node.querySelector('.param-input-container').appendChild(input);
-    node.querySelector('.param-input-container').appendChild(valueLabel);
+    node.innerHTML = `<div class="param-label">${name}</div>`;
+    let inputContainer: HTMLElement;
+    switch (param.control) {
+        case WidgetArgControlType.Checkbox:
+            inputContainer = createCheckbox(name, model);
+            break;
+        case WidgetArgControlType.Select:
+            inputContainer = createSelect(name, model);
+            break;
+        case WidgetArgControlType.Slider:
+            inputContainer = createSlider(name, model);
+            break;
+        case WidgetArgControlType.Text:
+            inputContainer = createText(name, model);
+            break;
+        default:
+            inputContainer = createText(name, model);
+            break;
+    }
+    inputContainer.classList.add('param-input-container');
+    node.appendChild(inputContainer);
     return node;
 } 

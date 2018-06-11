@@ -231,6 +231,7 @@ body {
     position: absolute;
     border: 1px solid #d8d8d8;
     border-radius: 2px;
+    min-width: 150px;
     box-shadow: 1px 1px 3px #dadada;
 }
 
@@ -257,16 +258,23 @@ body {
     font-size: 0.6em;
 }
 
+.widget .param-control {
+    margin-bottom: 3px;
+}
+
 .widget .param-input-container {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.widget .param-input-container input[type='range'] {
+.widget .param-input-container input[type='range'],
+.param-input-container select,
+.param-input-container input[type='text'] {
    flex-grow: 1;
 }
 
 .widget .value-label {
     width: 20px;
+    text-align: right;
 }

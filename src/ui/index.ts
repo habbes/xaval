@@ -8,7 +8,6 @@ export {
     ImageViewer
 };
 
-export { WidgetManager } from './widget-manager';
-export { WidgetView } from './widget-view';
+export { WidgetManager, WidgetView } from './widget';
 export { Camera, CameraManager } from './camera';
 export { SampleManager } from './samples';

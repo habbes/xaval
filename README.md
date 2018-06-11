@@ -10,15 +10,14 @@ Interactive web-based playground for computer vision and image processing, usefu
 - [OpenCV](https://docs.opencv.org/3.4.1/d5/d10/tutorial_js_root.html) is preloaded
 - You can import your images
 - Simple API for loading input images and displaying out images
-- Support for custom widgets and pipelines that control function parameters in real time
+- Custom widgets supporting multiple control types and pipelines that control function parameters in real time
 
 ## Planned Features
 
 In no particular order, here are some of the features planned:
 
-- Full-feature custom widgets support, including creating pipelines, multiple control types, automatic data validation, etc.
 - Support for Tensorflow.js
-- File library that supports importing multiple files
+- Support for different file types besides images
 - Load images/videos from the web
 - Video and Webcam support
 - Background code execution

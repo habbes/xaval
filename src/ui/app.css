@@ -239,13 +239,28 @@ body {
     display: none;
 }
 
-.widget-title {
+.widget-header {
     padding: 3px 10px;
     background-color: #f7f7f7;
-    font-size: 0.8em;
-    font-weight: bold;
-    color: #848080;
     border-bottom: 1px solid #d8d8d8;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.widget-title {
+    color: #848080;
+    font-size: 0.8em;
+}
+
+.widget-id {
+    margin-left: 10px;
+    font-size: 0.6em;
+    font-style: italic;
+    font-weight: normal;
+    color: #afadad;
+    
 }
 
 .widget-content {

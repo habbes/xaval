@@ -43,8 +43,7 @@ widgets.define('Rotation', {
 });
 
 // create a widget instance from the template
-const widgetId = widgets.create('Rotation');
-const rotation = widgets.get(widgetId);
+const rotation = widgets.create('Rotation');
 
 // attach the widget to the image viewer
 rotation.outputs.image.pipe(imageViewer);

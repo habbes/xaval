@@ -44,8 +44,7 @@ widgets.define('EdgeDetection', {
   }
 });
 
-const widgetId = widgets.create('EdgeDetection');
-const edgeWidget = widgets.get(widgetId);
+const edgeWidget = widgets.create('EdgeDetection');
 
 // feed camera stream to widget and display output
 const stream = camera.getStream({ fps: 30 });

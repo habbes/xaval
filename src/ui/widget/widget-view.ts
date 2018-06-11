@@ -7,9 +7,15 @@ import { createCheckbox, createSlider, createSelect, createText } from './contro
 export class WidgetView {
     readonly el: HTMLElement;
     readonly model: WidgetModel;
+
     constructor (model: WidgetModel) {
         this.el = createHtml(model);
         this.model = model;
+    }
+
+    setId (id: string) {
+        this.el.id = id;
+        this.el.querySelector('.widget-id').textContent = `#${id}`;
     }
 }
 
@@ -19,7 +25,10 @@ interface WidgetHtmlElement extends HTMLDivElement {
 
 function createHtml (model: WidgetModel) {
     const tpl = 
-    `<div class="widget-title">${model.opts.name}</div>
+    `<div class="widget-header">
+        <span class="widget-title">${model.opts.name}</span>
+        <span class="widget-id"></span>
+    </div>
     <div class="widget-content">
         <div class="params-container">
         </div>
@@ -35,7 +44,7 @@ function createHtml (model: WidgetModel) {
         const control = createParamControl(paramName, model);
         paramContainer.appendChild(control);
     }
-    const header = <HTMLDivElement>node.querySelector('.widget-title');
+    const header = <HTMLDivElement>node.querySelector('.widget-header');
     header.draggable = true;
     header.ondragstart = (ev) => {
         ev.dataTransfer.setData('id', node.id);

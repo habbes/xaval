@@ -39,13 +39,14 @@ export class WidgetManager {
     /**
      * creates a new widget based on the specified template
      * and adds it to the widget manager then displays it.
-     * Returns the id of the widget
+     * Returns the the widget
      * @param templateName name of a registered template
      */
-    public create (templateName: string): string {
+    public create (templateName: string): WidgetModel {
         const template = this.templates[templateName];
         const widget = template.create();
-        return this.add(widget);
+        this.add(widget);
+        return widget;
     }
 
     /**

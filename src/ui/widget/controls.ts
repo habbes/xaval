@@ -47,7 +47,6 @@ export function createSelect (name: string, model: WidgetModel): HTMLElement {
     const container = document.createElement('div');
     const select = document.createElement('select');
     const initValue = model.getParam(name);
-    console.log('params', param, options);
     Object.keys(options).forEach(optionVal => {
         const label = options[optionVal];
         const option = document.createElement('option');

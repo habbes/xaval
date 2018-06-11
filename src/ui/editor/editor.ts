@@ -1,5 +1,5 @@
 import { Editor } from '@/types';
-import INITIAL_CODE from '@/samples/widgets';
+import INITIAL_CODE from '@/samples/empty';
 import { EditorProvider } from './types';
 import { createAceEditor } from './ace';
 
@@ -25,6 +25,10 @@ export default class implements Editor {
 
     get source (): string {
         return this.editor.getValue();
+    }
+
+    set source (code: string) {
+        this.editor.setValue(code);
     }
 
     focus () {

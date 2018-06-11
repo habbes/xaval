@@ -6,8 +6,13 @@ import {
     WidgetTemplate,
     WidgetTemplateCreateArgs
 } from './types';
-import { createWidgetCreateFunction } from './widget-model';
+import { createWidgetCreateFunction, getDefaultControlForType } from './widget-model';
 
+/**
+ * creates a widget template
+ * @param name 
+ * @param args 
+ */
 export function createWidgetTemplate (name: string, args: WidgetTemplateCreateArgs): WidgetTemplate {
     const opts: WidgetOpts = {
         name,
@@ -20,15 +25,16 @@ export function createWidgetTemplate (name: string, args: WidgetTemplateCreateAr
     // params
     for (let paramName in args.params) {
         const rawParams = args.params[paramName];
-        const type = <WidgetArgDataType>args.params[paramName].type || WidgetArgDataType.Number;
-        const control = args.params[paramName].control = WidgetArgControlType.Slider;
+        const type = <WidgetArgDataType>rawParams.type || WidgetArgDataType.Number;
+        const control = <WidgetArgControlType>rawParams.control || getDefaultControlForType(type);
         opts.params[paramName] = {
             type,
             control,
             initial: rawParams.initial,
             min: rawParams.min,
             max: rawParams.max,
-            step: rawParams.step
+            step: rawParams.step,
+            options: { ...rawParams.options }
         };
     }
 

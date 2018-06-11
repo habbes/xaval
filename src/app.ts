@@ -15,6 +15,11 @@ export default class App {
             console.log('Code result', res);
         });
 
+        this.args.samples.onSampleSelected(code => {
+            this.args.editor.source = code;
+            this.args.editor.focus();
+        });
+
         this.args.editor.focus();
     }
 
@@ -29,7 +34,8 @@ export default class App {
             },
             io: {
                 imageViewer: this.args.imageViewer,
-                imageSource: this.args.imageSource,
+                files: this.args.files,
+                cameras: this.args.cameras
             }
         }
     }

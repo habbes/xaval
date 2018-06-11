@@ -8,9 +8,10 @@ Interactive web-based playground for computer vision and image processing, usefu
 
 - In-browser JS environment where you write your code
 - [OpenCV](https://docs.opencv.org/3.4.1/d5/d10/tutorial_js_root.html) is preloaded
-- You can import your images
+- You can import multiple images from your computer
 - Simple API for loading input images and displaying out images
 - Support for custom widgets and pipelines that control function parameters in real time
+- Easy API for working with video streams from a connected camera
 
 ## Planned Features
 
@@ -18,9 +19,9 @@ In no particular order, here are some of the features planned:
 
 - Full-feature custom widgets support, including creating pipelines, multiple control types, automatic data validation, etc.
 - Support for Tensorflow.js
-- File library that supports importing multiple files
+- Supporting for importing other file types besides images
 - Load images/videos from the web
-- Video and Webcam support
+- Support for importing videos
 - Background code execution
 - Console/Stdout emulator
 - Multiple code cells

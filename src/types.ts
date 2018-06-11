@@ -1,5 +1,6 @@
 import { Observable, Observer, Subscription, NextObserver } from 'rxjs';
-import { WidgetManager } from '@/ui/widget-manager';
+import { FileLibrary } from '@/core/files';
+import { CameraManager, WidgetManager, SampleManager } from '@/ui';
 
 export interface Editor {
     source: string;
@@ -19,8 +20,10 @@ export interface ImageSource {
 export interface AppNewArgs {
     editor: Editor;
     imageViewer: ImageViewer;
-    imageSource: ImageSource;
+    files: FileLibrary;
     widgetManager: WidgetManager;
+    cameras: CameraManager;
+    samples: SampleManager;
 }
 
 export interface HtmlInputEvent extends Event {

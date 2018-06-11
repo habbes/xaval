@@ -3,7 +3,6 @@
 <head lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xaval</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
 </head>
 <body>
@@ -11,8 +10,14 @@
     <header id="header">
         <div id="logo">Xaval</div>
         <div class="header-main">
-            <button id="runButton"><i class="fas fa-play"></i> Run</button>
+            <button id="runButton" class="btn"><i class="fas fa-play"></i> Run</button>
         </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <span>Samples</span>
+                <ul id="samplesMenu" class="nav-submenu"></ul>
+            </li>
+        </ul>
         <div id="status">OpenCV.js is loading...</div>
     </header>
     <div id="main">
@@ -23,12 +28,13 @@
             <div id="imageViewer" class="io">
                 <canvas class="canvas"></canvas>
             </div>
-            <div id="imageSource" class="io">
-                <img alt="No Image selected" class="empty" />
-                <div class="image-input">
-                    Click to import image
+            <div id="files" class="io">
+                <button class="btn files-new">
+                    <i class="fas fa-upload"></i> Import
+                </button>
+                <div class="thumbnails">
                 </div>
-                <input id="imageSourceInput" type="file" name="file">
+                <input id="filesInput" type="file" name="file" accept="image/*" multiple>
             </div>
         </div>
     </div>

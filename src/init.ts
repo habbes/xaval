@@ -1,10 +1,13 @@
 import App from './app';
 import { 
     Editor,
-    ImageSource,
+    FileLibrary,
     ImageViewer,
-    WidgetManager
+    WidgetManager,
+    CameraManager,
+    SampleManager
 } from './ui';
+import * as codeSamples from '@/samples';
 import './ui/app.css';
 
 
@@ -24,14 +27,24 @@ export default function init () {
 
     const editor = new Editor(document.querySelector('#editorContainer'));
     const imageViewer = new ImageViewer(document.querySelector('#imageViewer'));
-    const imageSource = new ImageSource(document.querySelector('#imageSource'));
+    const files = new FileLibrary(document.querySelector('#files'));
     const widgetManager = new WidgetManager(document.querySelector('#main'));
+    const cameras = new CameraManager();
+    const samples = new SampleManager(document.querySelector('#samplesMenu'));
+    samples.addSamples({
+        'Quick Intro': codeSamples.QUICK_INTRO,
+        'Widgets': codeSamples.WIDGETS,
+        'Camera': codeSamples.CAMERA,
+        'Edge Detection': codeSamples.EDGE_DETECTION
+    });
 
     const app = new App({
         editor,
-        imageSource,
+        files,
         imageViewer,
-        widgetManager
+        widgetManager,
+        cameras,
+        samples
     });
 
     return app;

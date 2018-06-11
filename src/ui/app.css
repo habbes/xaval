@@ -71,7 +71,7 @@ body {
 .nav-submenu {
     position: absolute;
     display: none;
-    top: 54px;
+    top: 50px;
     left: 0px;
     border-radius: 2px;
 }

@@ -122,7 +122,7 @@ export function initWidgetModelState (opts: WidgetOpts): WidgetModelContext {
     };
     for (let paramName in opts.params) {
         const param = opts.params[paramName];
-        let value: any = 'initial' in param ? param.initial : getDefaultInitialValueForType(param.type);
+        let value: any = typeof param.initial !== 'undefined' ? param.initial : getDefaultInitialValueForType(param.type);
         state.params[paramName] = value;
     }
     for (let inputName in opts.inputs) {

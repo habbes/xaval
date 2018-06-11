@@ -82,7 +82,7 @@ export class WidgetManager {
     public add (widget: WidgetModel): string {
         const view = new WidgetView(widget);
         const widgetId = `widget${this.nextWidgetId}`;
-        view.el.id = widgetId;
+        view.setId(widgetId);
         this.nextWidgetId += 1;
         this.el.appendChild(view.el);
         this.widgets[widgetId] = view;

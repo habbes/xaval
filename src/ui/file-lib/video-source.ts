@@ -1,13 +1,17 @@
 import { Video } from '@/ui/video';
+import { applyMixins } from '@/core/util';
 import { FileType } from '@/core/files';
 import { VideoFileSource } from './types';
+import { NameUpdatable } from './mixins';
 
-export default class implements VideoFileSource {
+export default class Source implements VideoFileSource, NameUpdatable {
     private _el: HTMLElement;
     private _thumbnail: HTMLElement;
     private _nameEl: HTMLInputElement;
     private _video: Video;
     private _name: string;
+
+    onNameChanged: (handler: (newName: string) => any) => any;
 
     constructor (src: string, name: string) {
         this._el = this.createHtml();
@@ -36,6 +40,10 @@ export default class implements VideoFileSource {
         return this._video;
     }
 
+    get nameEl () {
+        return this._nameEl;
+    }
+
     private createHtml () {
         this._el = document.createElement('div');
         this._el.classList.add('file-source', 'video-source');
@@ -48,13 +56,6 @@ export default class implements VideoFileSource {
         this._el.appendChild(this._nameEl);
         return this._el;
     }
-
-    onNameChanged (handler: (newName: string) => any) {
-        this._nameEl.addEventListener('change', () => {
-            const newName = this._nameEl.value;
-            if (newName !== this._name) {
-                handler(newName);
-            }
-        });
-    }
 }
+
+applyMixins(Source, [NameUpdatable]);

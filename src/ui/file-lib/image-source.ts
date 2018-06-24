@@ -18,7 +18,7 @@ export default class Source implements ImageFileSource {
         this._image = new Image();
         this._thumbnail.src = src;
         this._image.src = src;
-        this._name = name;
+        this.name = name;
     }
 
     get el (): HTMLElement {

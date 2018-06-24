@@ -26,6 +26,10 @@ export default class  {
         return this._name;
     }
 
+    get video (): Video {
+        return this._video;
+    }
+
     private createHtml () {
         this._el = document.createElement('div');
         this._el.classList.add('file-source', 'video-source');

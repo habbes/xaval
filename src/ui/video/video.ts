@@ -23,39 +23,9 @@ export class Video implements VideoSource {
         this._onPlayHandler = this.onVideoPlaying.bind(this);
         this._onPauseHandler = this.onVideoPaused.bind(this);
         this._onEndHandler = this.onVideoEnded.bind(this);
-    }
 
-    private onVideoReady () {
-        this._video.width = this._video.videoWidth;
-        this._video.height = this._video.videoHeight;
-        this._capture = new cv.VideoCapture(this._video);
-        if (!this._poster) {
-            this._poster = this._video.poster;
-            if (this._posterReadyHandler) {
-                this._posterReadyHandler();
-            }
-        }
-        this._video.addEventListener('play', this._onPlayHandler);
-        this._video.addEventListener('pause', this._onPauseHandler);
-        this._video.addEventListener('ended', this._onEndHandler);
-    }
-
-    private onVideoPlaying () {
-        this._playing = true;
-        if (this._stream && this._stream.params.autoStart && !this._stream.streaming) {
-            this._stream.start();
-        }
-    }
-
-    private onVideoPaused () {
-        this._playing = false;
-        if (this._stream && this._stream.streaming) {
-            this._stream.stop();
-        }
-    }
-
-    private onVideoEnded () {
-        this.onVideoPaused();
+        // load poster
+        this.loadPoster();
     }
 
     get width () {
@@ -108,11 +78,60 @@ export class Video implements VideoSource {
         return this._captureDest;
     }
 
+    private onVideoReady () {
+        this._video.width = this._video.videoWidth;
+        this._video.height = this._video.videoHeight;
+        this._capture = new cv.VideoCapture(this._video);
+        this._video.addEventListener('play', this._onPlayHandler);
+        this._video.addEventListener('pause', this._onPauseHandler);
+        this._video.addEventListener('ended', this._onEndHandler);
+    }
+
+    private onVideoPlaying () {
+        this._playing = true;
+        if (this._stream && this._stream.params.autoStart && !this._stream.streaming) {
+            this._stream.start();
+        }
+    }
+
+    private onVideoPaused () {
+        this._playing = false;
+        if (this._stream && this._stream.streaming) {
+            this._stream.stop();
+        }
+    }
+
+    private onVideoEnded () {
+        this.onVideoPaused();
+    }
+
+
     private deleteCaptureDest () {
         if (this._captureDest && !this._captureDest.isDeleted()) {
             this._captureDest.delete();
             this._captureDest = null;
         }
+    }
+
+    private loadPoster () {
+        const video = document.createElement('video');
+        video.onloadedmetadata = () => {
+            const time = video.duration / 2;
+            video.currentTime = time;
+            video.onseeked = () => {
+                const canvas = document.createElement('canvas');
+                canvas.height = video.videoHeight;
+                canvas.width = video.videoWidth;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const posterUrl = canvas.toDataURL();
+                this._poster = posterUrl;
+                if (this._posterReadyHandler) {
+                    this._posterReadyHandler();
+                }
+            };
+        };
+        video.src = this._video.src;
     }
     
     read (dest?: any) {

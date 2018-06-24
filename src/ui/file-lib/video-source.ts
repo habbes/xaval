@@ -1,17 +1,26 @@
-import { FileType } from '@/core/files';
+import { Video } from '@/ui/video';
 import { applyMixins } from '@/core/util';
-import { ImageFileSource } from './types';
+import { FileType } from '@/core/files';
+import { VideoFileSource } from './types';
 import { NameUpdatable } from './mixins';
 
-
-export default class Source implements ImageFileSource {
+export default class Source implements VideoFileSource, NameUpdatable {
     private _el: HTMLElement;
-    private _thumbnail: HTMLImageElement
-    private _image: HTMLImageElement;
+    private _thumbnail: HTMLImageElement;
     private _nameEl: HTMLInputElement;
+    private _video: Video;
     private _name: string;
 
     onNameChanged: (handler: (newName: string) => any) => any;
+
+    constructor (src: string, name: string) {
+        this._el = this.createHtml();
+        this._video = new Video(src);
+        this.name = name;
+        this._video.onPosterReady(() => {
+            this._thumbnail.src = this._video.poster;
+        });
+    }
 
     get el (): HTMLElement {
         return this._el;
@@ -27,16 +36,20 @@ export default class Source implements ImageFileSource {
     }
 
     get type (): FileType {
-        return 'image';
+        return 'video';
     }
 
-    get image () {
-        return this._image;
+    get video (): Video {
+        return this._video;
+    }
+
+    get nameEl () {
+        return this._nameEl;
     }
 
     private createHtml () {
         this._el = document.createElement('div');
-        this._el.classList.add('file-source', 'image-source');
+        this._el.classList.add('file-source', 'video-source');
         this._thumbnail = document.createElement('img');
         this._thumbnail.classList.add('thumbnail');
         this._nameEl = document.createElement('input');

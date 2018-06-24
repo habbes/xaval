@@ -1,13 +1,15 @@
-import { FileLibrary } from '@/core/files';
+import { FileLibrary, FileType } from '@/core/files';
 import { HtmlInputEvent } from '@/types';
+import { FileSource, FileContainer, SourceCtor } from './types';
 import ImageSource from './image-source';
+import VideoSource from './video-source';
 
 export default class FileLibView implements FileLibrary {
     readonly el: HTMLElement;
     readonly inputEl: HTMLInputElement;
     readonly inputPrompt: HTMLElement;
     readonly thumbnailsEl: HTMLElement;
-    readonly files: { [filename: string]: FileSource } = {};
+    readonly files: { [filename: string]: FileContainer } = {};
     private idCounter = 1;
     
     constructor (el: HTMLElement) {
@@ -24,24 +26,30 @@ export default class FileLibView implements FileLibrary {
     private onFileSelected (e: HtmlInputEvent) {
         const rawFiles = e.target.files;
         for (let i = 0; i < rawFiles.length; i++) {
-            this.addImage(URL.createObjectURL(rawFiles.item(i)));
+            const item = rawFiles.item(i);
+            const url = URL.createObjectURL(item);
+            if (/image/.test(item.type)) {
+                this.addImage(url);
+            }
+            else if (/video/.test(item.type)) {
+                this.addVideo(url)
+            }
         }
     }
 
-    addImage (fileUrl: string, filename: string = '') {
+    add (fileUrl:string, ctor: SourceCtor, filename?: string) {
         const id = this.nextId();
         const name = filename || id;
         if (name in this.files) {
             alert(`There's already an imported file called '${name}'.`);
             return;
         }
-        const source = new ImageSource(fileUrl, name);
+        const source = new ctor(fileUrl, name);
         source.el.id = id;
-        const file: FileSource = {
-            type: 'image',
+        const file: FileContainer = {
             id,
             name,
-            source: source
+            source
         };
         this.files[name] = file;
         this.addFileEl(source.el);
@@ -50,10 +58,49 @@ export default class FileLibView implements FileLibrary {
         });
     }
 
+    addImage (fileUrl: string, filename: string = '') {
+        this.add(fileUrl, ImageSource, filename);
+    }
+
+    addVideo (fileUrl: string, filename: string = '') {
+        this.add(fileUrl, VideoSource, filename);
+    }
+
     readImage (name: string): any {
         const file = this.files[name];
-        // TODO: ensure file is of type image
-        return file && cv.imread(file.source.image);
+        if (file.source instanceof ImageSource) {
+            return file && cv.imread(file.source.image);
+        } else {
+            // TODO: throw error instead
+            return null;
+        }
+    }
+
+    readVideo (name: string): any {
+        const file = this.files[name];
+        if (file.source instanceof VideoSource) {
+            return file && file.source.video;
+        } else {
+            // TODO: throw error instead
+            return null;
+        }
+
+    }
+
+    read (name: string): any {
+        const file = this.files[name];
+        // TODO throw error instead
+        if (!file) {
+            alert(`Unknown file ${file}.`);
+        }
+        switch (file.source.type) {
+            case 'image':
+                return this.readImage(name);
+            case 'video':
+                return this.readVideo(name);
+            default:
+                return null;
+        }
     }
 
     rename(oldName: string, newName: string) {
@@ -84,11 +131,4 @@ export default class FileLibView implements FileLibrary {
     private onFilenameChanged (oldName: string, newName: string) {
         this.rename(oldName, newName);
     }
-}
-
-interface FileSource {
-    type: 'image',
-    id: string,
-    name: string,
-    source: ImageSource
 }

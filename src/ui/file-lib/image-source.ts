@@ -1,6 +1,7 @@
-import { HtmlInputEvent } from '@/types';
+import { FileType } from '@/core/files';
+import { ImageFileSource } from './types';
 
-export default class ImageSource {
+export default class ImageSource implements ImageFileSource {
     private _el: HTMLElement;
     private thumbnail: HTMLImageElement
     private _image: HTMLImageElement;
@@ -25,6 +26,10 @@ export default class ImageSource {
 
     get name (): string {
         return this._name;
+    }
+
+    get type (): FileType {
+        return 'image';
     }
 
     get image () {

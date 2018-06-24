@@ -1,6 +1,8 @@
 import { Video } from '@/ui/video';
+import { FileType } from '@/core/files';
+import { VideoFileSource } from './types';
 
-export default class  {
+export default class implements VideoFileSource {
     private _el: HTMLElement;
     private _thumbnail: HTMLElement;
     private _nameEl: HTMLInputElement;
@@ -10,7 +12,7 @@ export default class  {
     constructor (src: string, name: string) {
         this._el = this.createHtml();
         this._video = new Video(src);
-        this._name = name;
+        this.name = name;
     }
 
     get el (): HTMLElement {
@@ -24,6 +26,10 @@ export default class  {
 
     get name (): string {
         return this._name;
+    }
+
+    get type (): FileType {
+        return 'video';
     }
 
     get video (): Video {

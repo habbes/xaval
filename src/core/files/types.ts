@@ -1,10 +1,28 @@
+import { VideoSource } from '@/core/video';
+
+/**
+ * represents a library for managing files,
+ * it provides access to add and read files of
+ * different types
+ * each file has unique name
+ * the implementation is also assumed to track
+ * metadata about each type internally (e.g. type)
+ */
 export interface FileLibrary {
+
     /**
      * adds an image to the file source
      * @param fileUrl object url of the image
      * @param filename optional name for the file, if not provided, one will be auto-assigned
      */
     addImage(fileUrl: string, filename?: string): any;
+
+    /**
+     * adds a video to the file library
+     * @param fileUrl object url of the image
+     * @param filename optional name for the file, if not provided, one will be auto-assigned
+     */
+    addVideo(fileUrl: string, filename?: string): any;
 
     /**
      * reads a specified image from the library as an OpenCv matrix
@@ -14,9 +32,25 @@ export interface FileLibrary {
     readImage(name: string): any;
 
     /**
+     * reads specified video from the library
+     * @param name file name
+     * @returns video
+     */
+    readVideo(name: string): VideoSource;
+
+    /**
+     * reads file based on its type
+     * @param name file name
+     * @returns depends on file type
+     */
+    read(name: string): any;
+
+    /**
      * changes the name of a file in the library
      * @param oldName current name of the file
      * @param newName new name, should be unique in the library
      */
     rename(oldName: string, newName: string): any;
 }
+
+export type FileType = 'image' | 'video';

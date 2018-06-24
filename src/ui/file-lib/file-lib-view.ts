@@ -1,5 +1,6 @@
-import { FileLibrary } from '@/core/files';
+import { FileLibrary, FileType } from '@/core/files';
 import { HtmlInputEvent } from '@/types';
+import { FileSource, FileContainer, SourceCtor } from './types';
 import ImageSource from './image-source';
 import VideoSource from './video-source';
 
@@ -8,7 +9,7 @@ export default class FileLibView implements FileLibrary {
     readonly inputEl: HTMLInputElement;
     readonly inputPrompt: HTMLElement;
     readonly thumbnailsEl: HTMLElement;
-    readonly files: { [filename: string]: FileSource } = {};
+    readonly files: { [filename: string]: FileContainer } = {};
     private idCounter = 1;
     
     constructor (el: HTMLElement) {
@@ -36,16 +37,16 @@ export default class FileLibView implements FileLibrary {
         }
     }
 
-    addFile (type: FileType, source: Source, filename?: string) {
+    add (fileUrl:string, ctor: SourceCtor, filename?: string) {
         const id = this.nextId();
         const name = filename || id;
         if (name in this.files) {
             alert(`There's already an imported file called '${name}'.`);
             return;
         }
+        const source = new ctor(fileUrl, name);
         source.el.id = id;
-        const file: FileSource = {
-            type,
+        const file: FileContainer = {
             id,
             name,
             source
@@ -58,13 +59,11 @@ export default class FileLibView implements FileLibrary {
     }
 
     addImage (fileUrl: string, filename: string = '') {
-        const source = new ImageSource(fileUrl, name);
-        this.addFile('image', source, filename);
+        this.add(fileUrl, ImageSource, filename);
     }
 
     addVideo (fileUrl: string, filename: string = '') {
-        const source = new VideoSource(fileUrl, name);
-        this.addFile('image', source, filename);
+        this.add(fileUrl, VideoSource, filename);
     }
 
     readImage (name: string): any {
@@ -94,7 +93,7 @@ export default class FileLibView implements FileLibrary {
         if (!file) {
             alert(`Unknown file ${file}.`);
         }
-        switch (file.type) {
+        switch (file.source.type) {
             case 'image':
                 return this.readImage(name);
             case 'video':
@@ -133,14 +132,3 @@ export default class FileLibView implements FileLibrary {
         this.rename(oldName, newName);
     }
 }
-
-interface FileSource {
-    type: FileType,
-    id: string,
-    name: string,
-    source: Source
-}
-
-type Source = ImageSource | VideoSource;
-
-type FileType = 'image' | 'video';

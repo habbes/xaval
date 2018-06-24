@@ -9,8 +9,6 @@ export class Video implements VideoSource {
     private _onPlayHandler: any;
     private _onPauseHandler: any;
     private _onEndHandler: any;
-    private _poster: string;
-    private _posterReadyHandler: any;
 
     constructor (src: string) {
         this._video = document.createElement('video');
@@ -25,49 +23,12 @@ export class Video implements VideoSource {
         this._onEndHandler = this.onVideoEnded.bind(this);
     }
 
-    private onVideoReady () {
-        this._video.width = this._video.videoWidth;
-        this._video.height = this._video.videoHeight;
-        this._capture = new cv.VideoCapture(this._video);
-        if (!this._poster) {
-            this._poster = this._video.poster;
-            if (this._posterReadyHandler) {
-                this._posterReadyHandler();
-            }
-        }
-        this._video.addEventListener('play', this._onPlayHandler);
-        this._video.addEventListener('pause', this._onPauseHandler);
-        this._video.addEventListener('ended', this._onEndHandler);
-    }
-
-    private onVideoPlaying () {
-        this._playing = true;
-        if (this._stream && this._stream.params.autoStart && !this._stream.streaming) {
-            this._stream.start();
-        }
-    }
-
-    private onVideoPaused () {
-        this._playing = false;
-        if (this._stream && this._stream.streaming) {
-            this._stream.stop();
-        }
-    }
-
-    private onVideoEnded () {
-        this.onVideoPaused();
-    }
-
     get width () {
         return this._video.width;
     }
 
     get height () {
         return this._video.height;
-    }
-
-    get poster () {
-        return this._poster;
     }
 
     get playing () {
@@ -108,12 +69,42 @@ export class Video implements VideoSource {
         return this._captureDest;
     }
 
+    private onVideoReady () {
+        this._video.width = this._video.videoWidth;
+        this._video.height = this._video.videoHeight;
+        this._capture = new cv.VideoCapture(this._video);
+        this._video.addEventListener('play', this._onPlayHandler);
+        this._video.addEventListener('pause', this._onPauseHandler);
+        this._video.addEventListener('ended', this._onEndHandler);
+    }
+
+    private onVideoPlaying () {
+        this._playing = true;
+        if (this._stream && this._stream.params.autoStart && !this._stream.streaming) {
+            this._stream.start();
+        }
+    }
+
+    private onVideoPaused () {
+        this._playing = false;
+        if (this._stream && this._stream.streaming) {
+            this._stream.stop();
+        }
+    }
+
+    private onVideoEnded () {
+        this.onVideoPaused();
+    }
+
+
     private deleteCaptureDest () {
         if (this._captureDest && !this._captureDest.isDeleted()) {
             this._captureDest.delete();
             this._captureDest = null;
         }
     }
+
+    
     
     read (dest?: any) {
         dest = dest || this.captureDest;
@@ -152,9 +143,5 @@ export class Video implements VideoSource {
             this._stream = null;
         }
         this.deleteCaptureDest();
-    }
-
-    onPosterReady (handler: any) {
-        this._posterReadyHandler = handler;
     }
 }

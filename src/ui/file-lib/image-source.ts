@@ -4,7 +4,7 @@ import { ImageFileSource } from './types';
 import { NameUpdatable } from './mixins';
 
 
-export default class Source implements ImageFileSource {
+export default class Source implements ImageFileSource, NameUpdatable {
     private _el: HTMLElement;
     private _thumbnail: HTMLImageElement
     private _image: HTMLImageElement;
@@ -40,6 +40,10 @@ export default class Source implements ImageFileSource {
 
     get image () {
         return this._image;
+    }
+
+    get nameEl () {
+        return this._nameEl;
     }
 
     private createHtml () {

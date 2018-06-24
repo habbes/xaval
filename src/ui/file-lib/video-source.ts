@@ -17,9 +17,7 @@ export default class Source implements VideoFileSource, NameUpdatable {
         this._el = this.createHtml();
         this._video = new Video(src);
         this.name = name;
-        this._video.onPosterReady(() => {
-            this._thumbnail.src = this._video.poster;
-        });
+        this.loadPoster(src);
     }
 
     get el (): HTMLElement {
@@ -45,6 +43,24 @@ export default class Source implements VideoFileSource, NameUpdatable {
 
     get nameEl () {
         return this._nameEl;
+    }
+
+    private loadPoster (src: string) {
+        const video = document.createElement('video');
+        video.onloadedmetadata = () => {
+            const time = video.duration / 2;
+            video.currentTime = time;
+            video.onseeked = () => {
+                const canvas = document.createElement('canvas');
+                canvas.height = video.videoHeight;
+                canvas.width = video.videoWidth;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const posterUrl = canvas.toDataURL();
+                this._thumbnail.src = posterUrl;
+            };
+        };
+        video.src = src;
     }
 
     private createHtml () {

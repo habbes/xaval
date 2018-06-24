@@ -9,8 +9,6 @@ export class Video implements VideoSource {
     private _onPlayHandler: any;
     private _onPauseHandler: any;
     private _onEndHandler: any;
-    private _poster: string;
-    private _posterReadyHandler: any;
 
     constructor (src: string) {
         this._video = document.createElement('video');
@@ -23,9 +21,6 @@ export class Video implements VideoSource {
         this._onPlayHandler = this.onVideoPlaying.bind(this);
         this._onPauseHandler = this.onVideoPaused.bind(this);
         this._onEndHandler = this.onVideoEnded.bind(this);
-
-        // load poster
-        this.loadPoster();
     }
 
     get width () {
@@ -34,10 +29,6 @@ export class Video implements VideoSource {
 
     get height () {
         return this._video.height;
-    }
-
-    get poster () {
-        return this._poster;
     }
 
     get playing () {
@@ -113,26 +104,7 @@ export class Video implements VideoSource {
         }
     }
 
-    private loadPoster () {
-        const video = document.createElement('video');
-        video.onloadedmetadata = () => {
-            const time = video.duration / 2;
-            video.currentTime = time;
-            video.onseeked = () => {
-                const canvas = document.createElement('canvas');
-                canvas.height = video.videoHeight;
-                canvas.width = video.videoWidth;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const posterUrl = canvas.toDataURL();
-                this._poster = posterUrl;
-                if (this._posterReadyHandler) {
-                    this._posterReadyHandler();
-                }
-            };
-        };
-        video.src = this._video.src;
-    }
+    
     
     read (dest?: any) {
         dest = dest || this.captureDest;
@@ -171,9 +143,5 @@ export class Video implements VideoSource {
             this._stream = null;
         }
         this.deleteCaptureDest();
-    }
-
-    onPosterReady (handler: any) {
-        this._posterReadyHandler = handler;
     }
 }

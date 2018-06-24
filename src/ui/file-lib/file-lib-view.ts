@@ -31,6 +31,10 @@ export default class FileLibView implements FileLibrary {
     addImage (fileUrl: string, filename: string = '') {
         const id = this.nextId();
         const name = filename || id;
+        if (name in this.files) {
+            alert(`There's already an imported file called '${name}'.`);
+            return;
+        }
         const source = new ImageSource(fileUrl, name);
         source.el.id = id;
         const file: FileSource = {

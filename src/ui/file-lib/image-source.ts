@@ -13,6 +13,14 @@ export default class Source implements ImageFileSource {
 
     onNameChanged: (handler: (newName: string) => any) => any;
 
+    constructor (src: string, name: string) {
+        this._el = this.createHtml();
+        this._image = new Image();
+        this._thumbnail.src = src;
+        this._image.src = src;
+        this._name = name;
+    }
+
     get el (): HTMLElement {
         return this._el;
     }

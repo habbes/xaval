@@ -54,8 +54,11 @@ export default class FileLibView implements FileLibrary {
 
     rename(oldName: string, newName: string) {
         const file = this.files[oldName];
+        if (!(oldName in this.files)) {
+            alert(`The file '${oldName}' was not found.`);
+            return;
+        }
         if (newName in this.files) {
-            console.log('new', newName, this.files);
             alert(`There's already an imported file called '${newName}'.`);
             file.source.name = oldName;
             return;

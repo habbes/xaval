@@ -6,7 +6,7 @@ import { NameUpdatable } from './mixins';
 
 export default class Source implements VideoFileSource, NameUpdatable {
     private _el: HTMLElement;
-    private _thumbnail: HTMLElement;
+    private _thumbnail: HTMLImageElement;
     private _nameEl: HTMLInputElement;
     private _video: Video;
     private _name: string;
@@ -17,6 +17,9 @@ export default class Source implements VideoFileSource, NameUpdatable {
         this._el = this.createHtml();
         this._video = new Video(src);
         this.name = name;
+        this._video.onPosterReady(() => {
+            this._thumbnail.src = this._video.poster;
+        });
     }
 
     get el (): HTMLElement {

@@ -8,22 +8,36 @@ export class Video implements VideoSource {
     private _playing: boolean;
     private _onPlayHandler: any;
     private _onPauseHandler: any;
+    private _onEndHandler: any;
+    private _poster: string;
+    private _posterReadyHandler: any;
 
     constructor (src: string) {
         this._video = document.createElement('video');
         this._video.muted = true;
+        this._video.preload = 'auto';
         this._video.src = src;
         this._video.addEventListener('canplay', () => {
             this.onVideoReady();
         });
         this._onPlayHandler = this.onVideoPlaying.bind(this);
         this._onPauseHandler = this.onVideoPaused.bind(this);
+        this._onEndHandler = this.onVideoEnded.bind(this);
     }
 
     private onVideoReady () {
         this._video.width = this._video.videoWidth;
         this._video.height = this._video.videoHeight;
         this._capture = new cv.VideoCapture(this._video);
+        if (!this._poster) {
+            this._poster = this._video.poster;
+            if (this._posterReadyHandler) {
+                this._posterReadyHandler();
+            }
+        }
+        this._video.addEventListener('play', this._onPlayHandler);
+        this._video.addEventListener('pause', this._onPauseHandler);
+        this._video.addEventListener('ended', this._onEndHandler);
     }
 
     private onVideoPlaying () {
@@ -40,6 +54,10 @@ export class Video implements VideoSource {
         }
     }
 
+    private onVideoEnded () {
+        this.onVideoPaused();
+    }
+
     get width () {
         return this._video.width;
     }
@@ -48,8 +66,36 @@ export class Video implements VideoSource {
         return this._video.height;
     }
 
+    get poster () {
+        return this._poster;
+    }
+
     get playing () {
         return this._playing;
+    }
+
+    get looping (): boolean {
+        return this._video.loop;
+    }
+
+    set looping (val: boolean) {
+        this._video.loop = val;
+    }
+
+    get ended (): boolean {
+        return this._video.ended;
+    }
+
+    get duration (): number {
+        return this._video.duration;
+    }
+
+    get currentTime (): number {
+        return this._video.currentTime;
+    }
+
+    set currentTime (time: number) {
+        this._video.currentTime = time;
     }
 
     /**
@@ -87,8 +133,6 @@ export class Video implements VideoSource {
 
     play () {
         this._video.play();
-        this._video.addEventListener('play', this._onPlayHandler);
-        this._video.addEventListener('pause', this._onPauseHandler);
     }
 
     pause () {
@@ -108,5 +152,9 @@ export class Video implements VideoSource {
             this._stream = null;
         }
         this.deleteCaptureDest();
+    }
+
+    onPosterReady (handler: any) {
+        this._posterReadyHandler = handler;
     }
 }

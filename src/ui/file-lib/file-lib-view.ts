@@ -31,7 +31,11 @@ export default class FileLibView implements FileLibrary {
     addImage (fileUrl: string, filename: string = '') {
         const id = this.nextId();
         const name = filename || id;
-        const source = new ImageSource(fileUrl, id)
+        if (name in this.files) {
+            alert(`There's already an imported file called '${name}'.`);
+            return;
+        }
+        const source = new ImageSource(fileUrl, name);
         source.el.id = id;
         const file: FileSource = {
             type: 'image',
@@ -54,8 +58,11 @@ export default class FileLibView implements FileLibrary {
 
     rename(oldName: string, newName: string) {
         const file = this.files[oldName];
+        if (!(oldName in this.files)) {
+            alert(`The file '${oldName}' was not found.`);
+            return;
+        }
         if (newName in this.files) {
-            console.log('new', newName, this.files);
             alert(`There's already an imported file called '${newName}'.`);
             file.source.name = oldName;
             return;

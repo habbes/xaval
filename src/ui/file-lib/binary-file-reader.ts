@@ -11,7 +11,7 @@ export default class implements BinaryFileReader {
         this._url = URL.createObjectURL(file);
     }
 
-    get objectURL () {
+    get url () {
         return this._url;
     }
 

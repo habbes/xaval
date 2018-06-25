@@ -75,7 +75,7 @@ export interface BinaryFileReader {
     /**
      * the object url of the file.
      */
-    objectURL: string;
+    url: string;
 
     /**
      * reads the contents of the file as text

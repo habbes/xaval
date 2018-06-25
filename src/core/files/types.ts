@@ -54,3 +54,23 @@ export interface FileLibrary {
 }
 
 export type FileType = 'image' | 'video';
+
+/**
+ * represents a wrapper around a blob
+ */
+export interface BinaryFileReader {
+    /**
+     * reads the contents of the file as text
+     */
+    readText(): Promise<any>;
+
+    /**
+     * returns the contents of the file as an ArrayBuffer
+     */
+    readBuffer(): Promise<any>;
+
+    /**
+     * returns the contents of the file as data url
+     */
+    readDataURL(): Promise<any>;
+}

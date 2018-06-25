@@ -25,6 +25,13 @@ export interface FileLibrary {
     addVideo(fileUrl: string, filename?: string): any;
 
     /**
+     * adds a file of an arbitrary type
+     * @param file blob containing the file
+     * @param filename optional name assigned to the file in the library
+     */
+    addBinary(file: Blob, filename?: string): any;
+
+    /**
      * reads a specified image from the library as an OpenCv matrix
      * @param name file name
      * @returns {cv.Mat} OpenCV matrix containing the image
@@ -37,6 +44,12 @@ export interface FileLibrary {
      * @returns video
      */
     readVideo(name: string): VideoSource;
+
+    /**
+     * returns a reader to access the specified file as a blob
+     * @param name 
+     */
+    getReader(name: string): BinaryFileReader;
 
     /**
      * reads file based on its type

@@ -1,4 +1,4 @@
-import { FileType } from '@/core/files';
+import { FileType, BinaryFileReader } from '@/core/files';
 import { Video } from '@/ui/video';
 
 export interface FileSource {
@@ -16,8 +16,12 @@ export interface VideoFileSource extends FileSource {
     video: Video;
 }
 
+export interface BinaryFileSource extends FileSource {
+    reader: BinaryFileReader;
+}
+
 export interface SourceCtor {
-    new (src: string, name: string): FileSource;
+    new (file: Blob | string, name: string): FileSource;
 }
 
 export interface FileContainer {

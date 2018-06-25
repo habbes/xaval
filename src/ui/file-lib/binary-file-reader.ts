@@ -3,10 +3,16 @@ import { BinaryFileReader } from '@/core/files';
 export default class implements BinaryFileReader {
     _reader: FileReader;
     _file: Blob;
+    _url: string;
 
     constructor (file: Blob) {
         this._file = file;
         this._reader = new FileReader();
+        this._url = URL.createObjectURL(file);
+    }
+
+    get objectURL () {
+        return this._url;
     }
 
     _read (type: Type) {

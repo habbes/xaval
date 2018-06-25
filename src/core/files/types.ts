@@ -73,6 +73,11 @@ export type FileType = 'image' | 'video';
  */
 export interface BinaryFileReader {
     /**
+     * the object url of the file.
+     */
+    objectURL: string;
+
+    /**
      * reads the contents of the file as text
      */
     readText(): Promise<any>;

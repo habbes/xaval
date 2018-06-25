@@ -34,7 +34,7 @@ export default class Source implements BinaryFileSource, NameUpdatable {
     }
 
     get type (): FileType {
-        return 'video';
+        return 'binary';
     }
 
     get nameEl () {

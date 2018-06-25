@@ -66,7 +66,7 @@ export interface FileLibrary {
     rename(oldName: string, newName: string): any;
 }
 
-export type FileType = 'image' | 'video';
+export type FileType = 'image' | 'video' | 'binary';
 
 /**
  * represents a wrapper around a blob

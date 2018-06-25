@@ -116,6 +116,8 @@ export default class FileLibView implements FileLibrary {
                 return this.readImage(name);
             case 'video':
                 return this.readVideo(name);
+            case 'binary':
+                return this.getReader(name);
             default:
                 return null;
         }

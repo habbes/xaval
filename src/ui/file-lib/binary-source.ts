@@ -1,23 +1,22 @@
-import { FileType } from '@/core/files';
 import { applyMixins } from '@/core/util';
-import { ImageFileSource } from './types';
+import { FileType, BinaryFileReader } from '@/core/files';
+import { BinaryFileSource } from './types';
 import { NameUpdatable } from './mixins';
+import Reader from './binary-file-reader';
 
-
-export default class Source implements ImageFileSource, NameUpdatable {
+export default class Source implements BinaryFileSource, NameUpdatable {
     private _el: HTMLElement;
-    private _thumbnail: HTMLImageElement
-    private _image: HTMLImageElement;
+    private _thumbnail: HTMLImageElement;
     private _nameEl: HTMLInputElement;
+    private _reader: BinaryFileReader;
     private _name: string;
+    private _contents: any;
 
     onNameChanged: (handler: (newName: string) => any) => any;
 
-    constructor (src: string, name: string) {
+    constructor (file: Blob, name: string) {
         this._el = this.createHtml();
-        this._image = new Image();
-        this._thumbnail.src = src;
-        this._image.src = src;
+        this._reader = new Reader(file);
         this.name = name;
     }
 
@@ -35,20 +34,20 @@ export default class Source implements ImageFileSource, NameUpdatable {
     }
 
     get type (): FileType {
-        return 'image';
-    }
-
-    get image () {
-        return this._image;
+        return 'binary';
     }
 
     get nameEl () {
         return this._nameEl;
     }
 
+    get reader () {
+        return this._reader;
+    }
+
     private createHtml () {
         this._el = document.createElement('div');
-        this._el.classList.add('file-source', 'image-source');
+        this._el.classList.add('file-source', 'video-source');
         this._thumbnail = document.createElement('img');
         this._thumbnail.classList.add('thumbnail');
         this._nameEl = document.createElement('input');

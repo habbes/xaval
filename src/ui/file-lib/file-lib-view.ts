@@ -3,6 +3,7 @@ import { HtmlInputEvent } from '@/types';
 import { FileSource, FileContainer, SourceCtor } from './types';
 import ImageSource from './image-source';
 import VideoSource from './video-source';
+import BinarySource from './binary-source';
 
 export default class FileLibView implements FileLibrary {
     readonly el: HTMLElement;
@@ -32,12 +33,15 @@ export default class FileLibView implements FileLibrary {
                 this.addImage(url);
             }
             else if (/video/.test(item.type)) {
-                this.addVideo(url)
+                this.addVideo(url);
+            }
+            else {
+                this.addBinary(item);
             }
         }
     }
 
-    add (fileUrl:string, ctor: SourceCtor, filename?: string) {
+    add (fileUrl: string | Blob, ctor: SourceCtor, filename?: string) {
         const id = this.nextId();
         const name = filename || id;
         if (name in this.files) {
@@ -66,10 +70,14 @@ export default class FileLibView implements FileLibrary {
         this.add(fileUrl, VideoSource, filename);
     }
 
+    addBinary (file: Blob, filename: string = '') {
+        this.add(file, BinarySource, filename);
+    }
+
     readImage (name: string): any {
         const file = this.files[name];
-        if (file.source instanceof ImageSource) {
-            return file && cv.imread(file.source.image);
+        if (file && file.source instanceof ImageSource) {
+            return cv.imread(file.source.image);
         } else {
             // TODO: throw error instead
             return null;
@@ -78,13 +86,23 @@ export default class FileLibView implements FileLibrary {
 
     readVideo (name: string): any {
         const file = this.files[name];
-        if (file.source instanceof VideoSource) {
-            return file && file.source.video;
+        if (file && file.source instanceof VideoSource) {
+            return file.source.video;
         } else {
             // TODO: throw error instead
             return null;
         }
 
+    }
+
+    getReader (name: string) {
+        const file = this.files[name];
+        if (file && file.source instanceof BinarySource) {
+            return file.source.reader;
+        } else {
+            // TODO: throw error instead
+            return null;
+        }
     }
 
     read (name: string): any {

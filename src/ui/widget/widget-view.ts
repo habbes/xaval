@@ -1,6 +1,6 @@
 
-import { template } from 'lodash';
 import { WidgetModel, WidgetArgDataType, WidgetArgControlType } from '@/core/widget';
+import { WidgetParamControl } from './types';
 import { createCheckbox, createSlider, createSelect, createText } from './controls';
 
 
@@ -58,25 +58,25 @@ function createParamControl (name: string, model: WidgetModel): HTMLElement {
     const node = document.createElement('div');
     node.className = 'param-control';
     node.innerHTML = `<div class="param-label">${name}</div>`;
-    let inputContainer: HTMLElement;
+    let control: WidgetParamControl;
     switch (param.control) {
         case WidgetArgControlType.Checkbox:
-            inputContainer = createCheckbox(name, model);
+            control = createCheckbox(name, model);
             break;
         case WidgetArgControlType.Select:
-            inputContainer = createSelect(name, model);
+            control = createSelect(name, model);
             break;
         case WidgetArgControlType.Slider:
-            inputContainer = createSlider(name, model);
+            control = createSlider(name, model);
             break;
         case WidgetArgControlType.Text:
-            inputContainer = createText(name, model);
+            control = createText(name, model);
             break;
         default:
-            inputContainer = createText(name, model);
+            control = createText(name, model);
             break;
     }
-    inputContainer.classList.add('param-input-container');
-    node.appendChild(inputContainer);
+    control.el.classList.add('param-input-container');
+    node.appendChild(control.el);
     return node;
 } 

@@ -6,7 +6,7 @@ import Reader from './binary-file-reader';
 
 export default class Source implements BinaryFileSource, NameUpdatable {
     private _el: HTMLElement;
-    private _thumbnail: HTMLImageElement;
+    private _thumbnail: HTMLDivElement;
     private _nameEl: HTMLInputElement;
     private _reader: BinaryFileReader;
     private _name: string;
@@ -48,8 +48,9 @@ export default class Source implements BinaryFileSource, NameUpdatable {
     private createHtml () {
         this._el = document.createElement('div');
         this._el.classList.add('file-source', 'video-source');
-        this._thumbnail = document.createElement('img');
-        this._thumbnail.classList.add('thumbnail');
+        this._thumbnail = document.createElement('div');
+        this._thumbnail.classList.add('thumbnail', 'icon-wrapper');
+        this._thumbnail.innerHTML = `<i class="fas fa-file fa-2x icon"></i>`;
         this._nameEl = document.createElement('input');
         this._nameEl.type = 'text';
         this._nameEl.classList.add('filename');

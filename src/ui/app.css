@@ -204,6 +204,17 @@ body {
     margin-right: 15px;
 }
 
+#files .thumbnail.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f3f0f0;
+}
+
+#files .thumbnail .icon {
+    color: #dcdada;
+}
+
 #files .filename {
     color: #5f6067;
     font-size: 0.7em;

@@ -54,6 +54,9 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
                 return source;
             },
             update () {
+                if (!validateUpdate(this)) {
+                    return;
+                }
                 const outputs = this.opts.onUpdate(this.state);
                 source.next(outputs);
             },
@@ -112,6 +115,22 @@ function setupOutputDataSources (widget: WidgetModel) {
 }
 
 /**
+ * checks whether the widget state is in a valid
+ * state for the update callback to run
+ * @param widget 
+ */
+function validateUpdate (widget: WidgetModel): boolean {
+    const res = !(
+        Object.keys(widget.opts.inputs)
+        .some(input => typeof widget.state.inputs[input] === 'undefined')
+        || Object.keys(widget.opts.params)
+        .some(param => typeof widget.state.params[param] === 'undefined')
+    );
+    console.log('update valid', res, 'state', widget);
+    return res;
+}
+
+/**
  * initializes a widget model's state
  * @param opts 
  */
@@ -126,7 +145,7 @@ export function initWidgetModelState (opts: WidgetOpts): WidgetModelContext {
         state.params[paramName] = value;
     }
     for (let inputName in opts.inputs) {
-        state.inputs[inputName] = null;
+        state.inputs[inputName] = undefined;
     }
     return state;
 }
@@ -145,7 +164,7 @@ export function getDefaultInitialValueForType (type: WidgetArgDataType): any {
         case WidgetArgDataType.String:
             return '';
         default:
-            return null;
+            return undefined;
     }
 }
 

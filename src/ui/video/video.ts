@@ -116,8 +116,9 @@ export class Video implements VideoSource {
         if (!this._stream) {
             params = { autoStart: true, ...params };
             this._stream = new VideoStream(this, params);
-            // check if playing first
-            this._stream.start();
+            if (this._playing && params.autoStart) {
+                this._stream.start();
+            }
         }
         return this._stream;
     }

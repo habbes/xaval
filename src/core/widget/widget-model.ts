@@ -126,7 +126,6 @@ function validateUpdate (widget: WidgetModel): boolean {
         || Object.keys(widget.opts.params)
         .some(param => typeof widget.state.params[param] === 'undefined')
     );
-    console.log('update valid', res, 'state', widget);
     return res;
 }
 

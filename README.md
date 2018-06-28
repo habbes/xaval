@@ -2,7 +2,7 @@
 
 Interactive web-based playground for computer vision and image processing, useful for experiments and exploration.
 
-[https://xaval.habbes.xyz](https://xaval.habbes.xyz)
+[https://xaval.app](https://xaval.app)
 
 ## Current Features
 
@@ -11,7 +11,7 @@ Interactive web-based playground for computer vision and image processing, usefu
 - You can import multiple images from your computer
 - Image viewer for displaying output with simple API
 - Importing images and videos
-- Importing blobs
+- Importing and working with arbitrary file blobs
 - Custom widgets supporting multiple control types and pipelines that control function parameters in real time
 - Easy API for working with video streams from a connected camera or imported video
 

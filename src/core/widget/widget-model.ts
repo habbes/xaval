@@ -24,6 +24,7 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
             inputs: {},
             outputs: {},
             _outputsObservables: {},
+            _paramUpdateHandler: undefined,
             getInput (name: string) {
                 return this.state.inputs[name];
             },
@@ -42,18 +43,30 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
             },
             setParam (name: string, value: any) {
                 this.state.params[name] = value;
+                if (this._paramUpdateHandler) {
+                    this._paramUpdateHandler(name, value);
+                }
                 this.update();
             },
             setParams (params) {
                 Object.keys(params).forEach(name => {
                     this.state.params[name] = params[name];
+                    if (this._paramUpdateHandler) {
+                        this._paramUpdateHandler(name, params[name]);
+                    }
                 });
                 this.update();
+            },
+            onParamUpdated (handler) {
+                this._paramUpdateHandler = handler;
             },
             get observable () {
                 return source;
             },
             update () {
+                if (!validateUpdate(this)) {
+                    return;
+                }
                 const outputs = this.opts.onUpdate(this.state);
                 source.next(outputs);
             },
@@ -112,6 +125,21 @@ function setupOutputDataSources (widget: WidgetModel) {
 }
 
 /**
+ * checks whether the widget state is in a valid
+ * state for the update callback to run
+ * @param widget 
+ */
+function validateUpdate (widget: WidgetModel): boolean {
+    const res = !(
+        Object.keys(widget.opts.inputs)
+        .some(input => typeof widget.state.inputs[input] === 'undefined')
+        || Object.keys(widget.opts.params)
+        .some(param => typeof widget.state.params[param] === 'undefined')
+    );
+    return res;
+}
+
+/**
  * initializes a widget model's state
  * @param opts 
  */
@@ -126,7 +154,7 @@ export function initWidgetModelState (opts: WidgetOpts): WidgetModelContext {
         state.params[paramName] = value;
     }
     for (let inputName in opts.inputs) {
-        state.inputs[inputName] = null;
+        state.inputs[inputName] = undefined;
     }
     return state;
 }
@@ -145,7 +173,7 @@ export function getDefaultInitialValueForType (type: WidgetArgDataType): any {
         case WidgetArgDataType.String:
             return '';
         default:
-            return null;
+            return undefined;
     }
 }
 

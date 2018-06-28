@@ -1,9 +1,9 @@
 import { WidgetModel, getParamValueFromString } from "@/core/widget";
+import { WidgetParamControl } from './types';
 
-export function createSlider (name: string, model: WidgetModel): HTMLElement {
+export function createSlider (name: string, model: WidgetModel): WidgetParamControl {
     const input = document.createElement('input');
     input.type = 'range';
-    input.value = model.state.params[name];
     const paramOpts = model.opts.params[name];
     if ('min' in paramOpts) {
         input.min = String(paramOpts.min);
@@ -14,6 +14,8 @@ export function createSlider (name: string, model: WidgetModel): HTMLElement {
     if ('step' in paramOpts) {
         input.step = String(paramOpts.step);
     }
+    input.value = model.getParam(name);
+
     const container = document.createElement('div');
     const valueLabel = document.createElement('span');
     valueLabel.className = 'value-label';
@@ -25,23 +27,36 @@ export function createSlider (name: string, model: WidgetModel): HTMLElement {
     });
     container.appendChild(input);
     container.appendChild(valueLabel);
-    return container;
+    return {
+        el: container,
+        update (paramName, model) {
+            const value = model.getParam(paramName);
+            input.value = value;
+            valueLabel.textContent = value;
+        }
+    };
 }
 
-export function createCheckbox (name: string, model: WidgetModel): HTMLElement {
+export function createCheckbox (name: string, model: WidgetModel): WidgetParamControl {
     const container = document.createElement('div');
     const input = document.createElement('input');
     input.type = 'checkbox';
-    input.checked = model.state.params[name];
+    input.checked = model.getParam(name);
     input.addEventListener('change', (e: Event) => {
         const value = input.checked;
         model.setParam(name, value);
     });
     container.appendChild(input);
-    return container;
+    return {
+        el: container,
+        update (paramName, model) {
+            const value = model.getParam(paramName);
+            input.value = value;
+        }
+    };
 }
 
-export function createSelect (name: string, model: WidgetModel): HTMLElement {
+export function createSelect (name: string, model: WidgetModel): WidgetParamControl {
     const param = model.opts.params[name];
     const { type, options } = param;
     const container = document.createElement('div');
@@ -62,18 +77,28 @@ export function createSelect (name: string, model: WidgetModel): HTMLElement {
         model.setParam(name, value);
     });
     container.appendChild(select);
-    return container;
+    return {
+        el: container,
+        update (paramName, model) {
+            select.value = model.getParam(paramName);
+        }
+    };
 }
 
-export function createText (name: string, model: WidgetModel): HTMLElement {
+export function createText (name: string, model: WidgetModel): WidgetParamControl {
     const container = document.createElement('div');
     const input = document.createElement('input');
     input.type = 'text';
-    input.value = model.state.params[name];
+    input.value = model.getParam(name);
     input.addEventListener('change', (e: Event) => {
         const value = input.value;
         model.setParam(name, value);
     });
     container.appendChild(input);
-    return container;
+    return {
+        el: container,
+        update (paramName, model) {
+            input.value = model.getParam(paramName);
+        }
+    };
 }

@@ -90,6 +90,7 @@ export interface WidgetModel extends DataSource<WidgetUpdateResult> {
      * @internal
      */
     _outputsObservables: {[name: string]: Observable<any>};
+    _paramUpdateHandler?: WidgetParamUpdateHandler;
     /**
      * updates the specified input
      * this updates the widget
@@ -126,6 +127,12 @@ export interface WidgetModel extends DataSource<WidgetUpdateResult> {
      * @param paramName
      */
     getParam(paramName: string): any;
+    /**
+     * registers a handler to be called when a param
+     * has been updated
+     * @param handler
+     */
+    onParamUpdated (handler: WidgetParamUpdateHandler): any;
     /**
      * updates the widget
      */
@@ -176,4 +183,8 @@ export interface WidgetTemplateCreateArgs {
 export interface WidgetTemplate {
     opts: WidgetOpts;
     create(): WidgetModel;
+}
+
+export interface WidgetParamUpdateHandler {
+    (paramName: string, value: any): any;
 }

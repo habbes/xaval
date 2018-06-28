@@ -34,6 +34,7 @@ export default function init () {
     samples.addSamples({
         'Quick Intro': codeSamples.QUICK_INTRO,
         'Widgets': codeSamples.WIDGETS,
+        'Video': codeSamples.VIDEO,
         'Camera': codeSamples.CAMERA,
         'Edge Detection': codeSamples.EDGE_DETECTION
     });

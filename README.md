@@ -2,25 +2,25 @@
 
 Interactive web-based playground for computer vision and image processing, useful for experiments and exploration.
 
-[https://xaval.habbes.xyz](https://xaval.habbes.xyz)
+[https://xaval.app](https://xaval.app)
 
 ## Current Features
 
 - In-browser JS environment where you write your code
 - [OpenCV](https://docs.opencv.org/3.4.1/d5/d10/tutorial_js_root.html) is preloaded
 - You can import multiple images from your computer
-- Simple API for loading input images and displaying out images
+- Image viewer for displaying output with simple API
+- Importing images and videos
+- Importing and working with arbitrary file blobs
 - Custom widgets supporting multiple control types and pipelines that control function parameters in real time
-- Easy API for working with video streams from a connected camera
+- Easy API for working with video streams from a connected camera or imported video
 
 ## Planned Features
 
 In no particular order, here are some of the features planned:
 
 - Support for Tensorflow.js
-- Support for different file types besides images
 - Load images/videos from the web
-- Support for importing videos
 - Background code execution
 - Console/Stdout emulator
 - Multiple code cells

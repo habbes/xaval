@@ -176,8 +176,8 @@ body {
 #files .files-new {
     margin-bottom: 5px;
     padding: 3px 15px;
-    border-color: #b3b3b3;
-    color: #545454;
+    border-color: #dedddd;
+    color: #848282;
 }
 
 #filesInput {
@@ -202,6 +202,17 @@ body {
     height: 85px;
     max-width: 100px;
     margin-right: 15px;
+}
+
+#files .thumbnail.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f3f0f0;
+}
+
+#files .thumbnail .icon {
+    color: #dcdada;
 }
 
 #files .filename {

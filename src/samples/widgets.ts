@@ -23,6 +23,29 @@ widgets.define('Rotation', {
       min: 0,
       max: 5,
       step: 0.1
+    },
+    interpolation: {
+      type: 'number',
+      control: 'select',
+      initial: 1,
+      options: {
+        1: 'Linear',
+        2: 'Cubic',
+        3: 'Area',
+        0: 'Nearest'
+      }
+    },
+    border: {
+      type: 'number',
+      control: 'select',
+      initial: 0,
+      options: {
+        0: 'Constant',
+        1: 'Replicate',
+        2: 'Reflect',
+        3: 'Wrap',
+        4: 'Reflect 101'
+      }
     }
   },
   // define inputs
@@ -31,12 +54,12 @@ widgets.define('Rotation', {
   outputs: ['image'],
   // define the computation triggered by the widget
   onUpdate (ctx) {
-    const { inputs: { image }, params: { angle, scale } } = ctx;
+    const { inputs: { image }, params: { angle, scale, interpolation, border } } = ctx;
     const dst = new cv.Mat();
     const dsize = new cv.Size(image.rows, image.cols);
     const center = new cv.Point(image.cols / 2, image.rows / 2);
     const M = cv.getRotationMatrix2D(center, angle, scale);
-    cv.warpAffine(image, dst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+    cv.warpAffine(image, dst, M, dsize, interpolation, border, new cv.Scalar());
     M.delete();
     return { image: dst };
   }

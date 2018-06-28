@@ -176,8 +176,8 @@ body {
 #files .files-new {
     margin-bottom: 5px;
     padding: 3px 15px;
-    border-color: #b3b3b3;
-    color: #545454;
+    border-color: #dedddd;
+    color: #848282;
 }
 
 #filesInput {

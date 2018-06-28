@@ -3,7 +3,6 @@ import { WidgetModel, getParamValueFromString } from "@/core/widget";
 export function createSlider (name: string, model: WidgetModel): HTMLElement {
     const input = document.createElement('input');
     input.type = 'range';
-    input.value = model.state.params[name];
     const paramOpts = model.opts.params[name];
     if ('min' in paramOpts) {
         input.min = String(paramOpts.min);
@@ -14,6 +13,8 @@ export function createSlider (name: string, model: WidgetModel): HTMLElement {
     if ('step' in paramOpts) {
         input.step = String(paramOpts.step);
     }
+    input.value = model.getParam(name);
+
     const container = document.createElement('div');
     const valueLabel = document.createElement('span');
     valueLabel.className = 'value-label';

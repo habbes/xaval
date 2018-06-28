@@ -24,6 +24,7 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
             inputs: {},
             outputs: {},
             _outputsObservables: {},
+            _paramUpdateHandler: undefined,
             getInput (name: string) {
                 return this.state.inputs[name];
             },
@@ -42,13 +43,22 @@ export function createWidgetCreateFunction (opts: WidgetOpts)  {
             },
             setParam (name: string, value: any) {
                 this.state.params[name] = value;
+                if (this._paramUpdateHandler) {
+                    this._paramUpdateHandler(name, value);
+                }
                 this.update();
             },
             setParams (params) {
                 Object.keys(params).forEach(name => {
                     this.state.params[name] = params[name];
+                    if (this._paramUpdateHandler) {
+                        this._paramUpdateHandler(name, params[name]);
+                    }
                 });
                 this.update();
+            },
+            onParamUpdated (handler) {
+                this._paramUpdateHandler = handler;
             },
             get observable () {
                 return source;

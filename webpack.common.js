@@ -4,7 +4,11 @@ const HtmlPlugin = require('html-webpack-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: {
+        app: './src/index.ts',
+        "editor.worker": 'monaco-editor/esm/vs/editor/editor.worker.js',
+        "ts.worker": 'monaco-editor/esm/vs/language/typescript/ts.worker'
+    },
     module: {
         rules: [
             {
@@ -32,10 +36,13 @@ module.exports = {
         extensions: [ '.tsx', '.ts', '.js' ]
     },
     output: {
-        filename: 'app.js',
+        // filename: 'app.js',
+        globalObject: 'self',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'public')
     },
     plugins: [
+        new webpack.IgnorePlugin(/^((fs)|(path)|(os)|(crypto)|(source-map-support))$/, /vs(\/|\\)language(\/|\\)typescript(\/|\\)lib/),
         new HtmlPlugin({
             template: './src/ui/index.html'
         }),

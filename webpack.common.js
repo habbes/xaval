@@ -6,8 +6,8 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 module.exports = {
     entry: {
         app: './src/index.ts',
-        "editor.worker": 'monaco-editor/esm/vs/editor/editor.worker.js',
-        "ts.worker": 'monaco-editor/esm/vs/language/typescript/ts.worker'
+        // "editor.worker": 'monaco-editor/esm/vs/editor/editor.worker.js',
+        // "ts.worker": 'monaco-editor/esm/vs/language/typescript/ts.worker'
     },
     module: {
         rules: [
@@ -37,7 +37,7 @@ module.exports = {
     },
     output: {
         // filename: 'app.js',
-        globalObject: 'self',
+        // globalObject: 'self',
         filename: '[name].js',
         path: path.resolve(__dirname, 'public')
     },
@@ -47,8 +47,13 @@ module.exports = {
             template: './src/ui/index.html'
         }),
         // TODO: enable this when using monaco
-        // new MonacoWebpackPlugin({
-        //     languages: ['typescript'],
-        // })
+        new MonacoWebpackPlugin({
+            languages: ['typescript'],
+            features: [
+                'coreCommands', 'findController', 'ipadShowKeyboard',
+                'parameterHints', 'hover', 'suggest',
+                'inspectTokens', 'comment', 'contextmenu'
+            ]
+        })
     ]
 };

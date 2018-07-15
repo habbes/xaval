@@ -1,3 +1,5 @@
+// TODO: enable the link to the ace editor in index.html if you want to enable ace
+
 import { EditorInitOpts, EditorProvider } from '.';
 
 export function createEditor (domEl: HTMLElement, opts: EditorInitOpts): EditorProvider {

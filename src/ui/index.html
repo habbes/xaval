@@ -25,11 +25,8 @@
                 <span>Samples</span>
                 <ul id="samplesMenu" class="nav-submenu"></ul>
             </li>
-            <li class="nav-item headway-updates">
-                <span>Updates</span>
-            </li>
         </ul>
-        <div id="status" class="headway-updates">OpenCV.js is loading...</div>
+        <div id="status" class="headway-updates"><span>v0.7</span></div>
     </header>
     <div id="main">
         <div id="editorContainer">
@@ -52,7 +49,7 @@
 </div>
 <script type="text/javascript">
 function onOpenCvReady () {
-    document.getElementById('status').innerHTML = 'Updates'//'OpenCv.js is ready.';
+    console.log('OpenCV.js ready');
 }
 </script>
 <script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
@@ -60,7 +57,7 @@ function onOpenCvReady () {
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js"></script> -->
 <script>
     var HW_config = {
-      selector: ".headway-updates", // CSS selector where to inject the badge
+      selector: ".headway-updates",
       account:  "7X6V8y"
     }
 </script>

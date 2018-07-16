@@ -1,6 +1,8 @@
+// TODO: enable the link to the ace editor in index.html if you want to enable ace
+
 import { EditorInitOpts, EditorProvider } from '.';
 
-export function createAceEditor (domEl: HTMLElement, opts: EditorInitOpts): EditorProvider {
+export function createEditor (domEl: HTMLElement, opts: EditorInitOpts): EditorProvider {
     const editor = ace.edit(domEl);
     editor.setValue(opts.value);
     editor.setTheme('ace/theme/xcode');

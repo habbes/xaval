@@ -105,6 +105,12 @@ body {
     font-size: 0.8em;
 }
 
+.headway-updates {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #main {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -26,7 +26,7 @@
                 <ul id="samplesMenu" class="nav-submenu"></ul>
             </li>
         </ul>
-        <div id="status">OpenCV.js is loading...</div>
+        <div id="status" class="headway-updates"><span>v0.8</span></div>
     </header>
     <div id="main">
         <div id="editorContainer">
@@ -49,10 +49,18 @@
 </div>
 <script type="text/javascript">
 function onOpenCvReady () {
-    document.getElementById('status').innerHTML = 'OpenCv.js is ready.';
+    console.log('OpenCV.js ready');
 }
 </script>
 <script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js"></script>
+<!-- TODO: if the ace editor is needed, enable the following line -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js"></script> -->
+<script>
+    var HW_config = {
+      selector: ".headway-updates",
+      account:  "7X6V8y"
+    }
+</script>
+<script async src="https://cdn.headwayapp.co/widget.js"></script>
 </body>
 </html>

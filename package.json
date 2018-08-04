@@ -6,7 +6,8 @@
   "scripts": {
     "clean": "rimraf public",
     "opencv": "copyfiles -u 2 src/opencv/* public",
-    "prep": "npm run clean && npm run opencv",
+    "assets": "copyfiles -u 2 src/ui/assets/* public",
+    "prep": "npm run clean && npm run opencv && npm run assets",
     "build": "npm run prep && webpack --config webpack.prod.js",
     "watch": "npm run prep && webpack --config webpack.dev.js --watch",
     "start": "npm run prep && webpack-dev-server --open --config webpack.dev.js",

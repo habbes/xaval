@@ -57,7 +57,7 @@ body {
     display: flex;
     align-items: center;
     font-size: 0.8em;
-    width: 90px;
+    min-width: 90px;
     justify-content: center; 
 }
 

@@ -12,6 +12,15 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /ui\/index\.html/,
+                use: {
+                    loader: 'html-loader',
+                    options: {
+                        attrs: ['img:src', 'link:href']
+                    }
+                }
+            },
+            {
                 test: /.ts$/,
                 use: 'ts-loader',
                 exclude: /node_modules/

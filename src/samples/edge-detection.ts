@@ -8,29 +8,10 @@ camera.start();
 // create edge detection widget
 widgets.define('EdgeDetection', {
   params: {
-    threshold1: {
-      type: 'number',
-      min: 1,
-      max: 500,
-      initial: 50
-    },
-    threshold2: {
-      type: 'number',
-      min: 1,
-      max: 500,
-      initial: 100
-    },
-    apertureSize: {
-      type: 'number',
-      min: 3,
-      max: 7,
-      step: 2,
-      initial: 3
-    },
-    l2Gradient: {
-      type: 'boolean',
-      initial: false
-    }
+    threshold1: { type: 'number', min: 1, max: 500, initial: 50 },
+    threshold2: { type: 'number', min: 1, max: 500, initial: 100 },
+    apertureSize: { type: 'number', min: 3, max: 7, step: 2, initial: 3 },
+    l2Gradient: { type: 'boolean', initial: false }
   },
   inputs: ['image'],
   outputs: ['edges'],

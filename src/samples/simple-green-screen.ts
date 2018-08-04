@@ -8,24 +8,9 @@ const cameraStream = camera.getStream({ fps: 30 });
 
 widgets.define('Blend', {
   params: {
-    minG: {
-      type: 'number',
-      min: 0,
-      max: 255,
-      initial: 200
-    },
-    maxR: {
-      type: 'number',
-      min: 0,
-      max: 255,
-      initial: 50
-    },
-    maxB: {
-      type: 'number',
-      min: 0,
-      max: 255,
-      initial: 50
-    }
+    minG: { type: 'number', min: 0, max: 255, initial: 200 },
+    maxR: { type: 'number', min: 0, max: 255, initial: 50 },
+    maxB: { type: 'number', min: 0, max: 255, initial: 50 }
   },
   inputs: ['green', 'target'],
   outputs: ['res'],

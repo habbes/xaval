@@ -11,42 +11,12 @@ const img = files.readImage('file1');
 widgets.define('Rotation', {
   // define parameters for this widget
   params: {
-    angle: {
-      type: 'number',
-      min: -180,
-      max: 180,
-      initial: 0
-    },
-    scale: {
-      type: 'number',
-      initial: 1,
-      min: 0,
-      max: 5,
-      step: 0.1
-    },
-    interpolation: {
-      type: 'number',
-      control: 'select',
-      initial: 1,
-      options: {
-        1: 'Linear',
-        2: 'Cubic',
-        3: 'Area',
-        0: 'Nearest'
-      }
-    },
-    border: {
-      type: 'number',
-      control: 'select',
-      initial: 0,
-      options: {
-        0: 'Constant',
-        1: 'Replicate',
-        2: 'Reflect',
-        3: 'Wrap',
-        4: 'Reflect 101'
-      }
-    }
+    angle: { type: 'number', min: -180, max: 180, initial: 0 },
+    scale: { type: 'number', initial: 1, min: 0, max: 5, step: 0.1 },
+    interpolation: { type: 'number', control: 'select', initial: 1,
+      options: { 1: 'Linear', 2: 'Cubic', 3: 'Area', 0: 'Nearest' } },
+    border: { type: 'number', control: 'select', initial: 0,
+      options: { 0: 'Constant', 1: 'Replicate', 2: 'Reflect', 3: 'Wrap', 4: 'Reflect 101' } }
   },
   // define inputs
   inputs: ['image'],

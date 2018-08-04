@@ -10,7 +10,6 @@ import {
 import * as codeSamples from '@/samples';
 import './ui/app.css';
 
-
 export default function init () {
     // allow drag and drop in main container
     const container = <HTMLDivElement>document.querySelector('#main');

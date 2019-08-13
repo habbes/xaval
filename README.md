@@ -2,7 +2,7 @@
 
 Interactive web-based playground for computer vision and image processing, useful for experiments and exploration.
 
-[https://xaval.app](https://xaval.app)
+[https://xaval.app](https://xaval.io)
 
 ## Current Features
 

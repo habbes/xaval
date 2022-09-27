@@ -2,7 +2,7 @@
 
 Interactive web-based playground for computer vision and image processing, useful for experiments and exploration.
 
-[https://xaval.io](https://xaval.io)
+[https://xaval.habbes.xyz](https://xaval.habbes.xyz)
 
 ## Current Features
 
